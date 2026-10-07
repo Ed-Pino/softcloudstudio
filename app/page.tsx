@@ -2,7 +2,14 @@ import Link from "next/link"
 import type { Metadata } from "next"
 import { buttonVariants } from "@/components/ui/button"
 import { casos, casosDestacados } from "@/lib/casos"
-import { CTA_HREF, GITHUB_URL, LOCATION, SITE_DESCRIPTION, SITE_TITLE } from "@/lib/site"
+import {
+  CTA_HREF,
+  GITHUB_URL,
+  LOCATION,
+  SITE_DESCRIPTION,
+  SITE_TITLE,
+  STACK,
+} from "@/lib/site"
 
 export const metadata: Metadata = {
   // absolute para que no se le aplique la plantilla "%s | SoftCloud Studio"
@@ -11,19 +18,6 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   alternates: { canonical: "/" },
 }
-
-const STACK = [
-  "Next.js",
-  "React",
-  "TypeScript",
-  "Java",
-  "Spring Boot",
-  "PostgreSQL",
-  "Tailwind CSS",
-  "OpenAI API",
-  "WhatsApp API",
-  "Vercel",
-]
 
 const PILARES = [
   {

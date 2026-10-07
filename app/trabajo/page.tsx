@@ -22,7 +22,8 @@ export default function TrabajoPage() {
         </h1>
         <p className="mt-8 max-w-2xl text-lg leading-relaxed text-zinc-600">
           Cada caso enlaza a su repositorio público y, cuando existe, a su demo
-          funcionando. Son proyectos propios de desarrollo: los mostramos con
+          funcionando. La mayoría son proyectos propios de desarrollo —el de
+          hackathon está marcado como trabajo en equipo— y todos se muestran con
           código incluido, no con capturas.
         </p>
       </section>

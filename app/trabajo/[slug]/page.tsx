@@ -110,11 +110,8 @@ export default async function CasoPage({
               Transparencia
             </h2>
             <p className="mt-5 max-w-2xl leading-relaxed text-zinc-600">
-              Este es un proyecto propio de desarrollo, no un trabajo de
-              cliente. Lo publicamos con su código porque preferimos mostrar
-              cómo trabajamos antes que logos que no nos corresponden. Los
-              proyectos de cliente se publican únicamente con autorización
-              expresa.
+              {caso.transparencia ??
+                "Este es un proyecto propio de desarrollo, no un trabajo de cliente. Lo publicamos con su código porque preferimos mostrar cómo trabajamos antes que logos que no nos corresponden. Los proyectos de cliente se publican únicamente con autorización expresa."}
             </p>
           </div>
 

@@ -1,6 +1,13 @@
 import type { Metadata } from "next"
 import { buttonVariants } from "@/components/ui/button"
-import { CTA_HREF, GITHUB_URL, LOCATION, SITE_NAME, whatsappLink } from "@/lib/site"
+import {
+  CTA_HREF,
+  GITHUB_URL,
+  LOCATION,
+  SITE_NAME,
+  STACK,
+  whatsappLink,
+} from "@/lib/site"
 
 export const metadata: Metadata = {
   title: "Nosotros",
@@ -14,6 +21,7 @@ const PERFIL = [
   "Frontend en TypeScript y React, con interfaces de administración pensadas para el día a día del equipo.",
   "Plataformas de e-commerce: catálogo, pagos, inventario y envíos conectados a la operación.",
   "Herramientas internas y automatizaciones que reemplazan trabajo manual.",
+  "Despliegue y operación en la nube sobre AWS y Oracle Cloud.",
 ]
 
 const PROCESO = [
@@ -41,19 +49,6 @@ const PROCESO = [
     texto:
       "El código queda en tus repositorios y 30 días de soporte van incluidos para la puesta en marcha.",
   },
-]
-
-const STACK = [
-  "Next.js",
-  "React",
-  "TypeScript",
-  "Java",
-  "Spring Boot",
-  "PostgreSQL",
-  "Tailwind CSS",
-  "OpenAI API",
-  "WhatsApp API",
-  "Vercel",
 ]
 
 export default function NosotrosPage() {

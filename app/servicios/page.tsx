@@ -1,7 +1,7 @@
 import Link from "next/link"
 import type { Metadata } from "next"
 import { buttonVariants } from "@/components/ui/button"
-import { CTA_HREF, LOCATION, whatsappLink } from "@/lib/site"
+import { CTA_HREF, LOCATION, STACK, whatsappLink } from "@/lib/site"
 
 export const metadata: Metadata = {
   title: "Servicios",
@@ -22,6 +22,7 @@ const SERVICIOS = [
       "Autenticación y roles",
       "Modelado de datos",
       "Integración con sistemas existentes",
+      "Despliegue en AWS y Oracle Cloud",
     ],
   },
   {
@@ -50,19 +51,6 @@ const SERVICIOS = [
       "Webhooks",
     ],
   },
-]
-
-const STACK = [
-  "Next.js",
-  "React",
-  "TypeScript",
-  "Java",
-  "Spring Boot",
-  "PostgreSQL",
-  "Tailwind CSS",
-  "OpenAI API",
-  "WhatsApp API",
-  "Vercel",
 ]
 
 const CONDICIONES = [

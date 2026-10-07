@@ -28,3 +28,19 @@ export const NAV = [
   { href: "/nosotros", label: "Nosotros" },
   { href: "/contacto", label: "Contacto" },
 ] as const
+
+// Fuente única del stack: la usan la home, /servicios y /nosotros.
+export const STACK = [
+  "Java",
+  "Spring Boot",
+  "TypeScript",
+  "React",
+  "Next.js",
+  "PostgreSQL",
+  "Tailwind CSS",
+  "AWS",
+  "Oracle Cloud",
+  "OpenAI API",
+  "WhatsApp API",
+  "Vercel",
+]

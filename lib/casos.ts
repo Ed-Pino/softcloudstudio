@@ -7,6 +7,7 @@ export const CATEGORIAS = [
   "API & Backend",
   "IA",
   "Herramientas",
+  "Hackathon",
 ] as const
 
 export type Categoria = (typeof CATEGORIAS)[number]
@@ -21,6 +22,8 @@ export type Caso = {
   repo: string
   demo?: string
   destacado?: boolean
+  /** Sustituye el texto de transparencia por defecto (proyecto propio). */
+  transparencia?: string
 }
 
 export const casos: Caso[] = [
@@ -42,9 +45,20 @@ export const casos: Caso[] = [
     resumen: "Integración de CRM con WhatsApp y correo electrónico",
     descripcion:
       "Integración que conecta un CRM con los canales donde realmente ocurre la conversación en Colombia: WhatsApp y correo electrónico, para centralizar el seguimiento de clientes en un solo lugar.",
-    stack: ["TypeScript", "WhatsApp API", "Email"],
+    stack: ["Java", "WhatsApp API", "Email"],
     repo: "https://github.com/Ed-Pino/NEXO-CRM-intgration-WhatsApp-Email",
     destacado: true,
+  },
+  {
+    slug: "ele-video",
+    titulo: "EleVideo",
+    categoria: "Herramientas",
+    resumen:
+      "Edición de video: de formato vertical a horizontal y recorte de duración",
+    descripcion:
+      "Aplicación para editar video: reencuadra piezas de formato vertical a horizontal y ajusta su duración. Proyecto propio para reaprovechar material grabado en distintos formatos.",
+    stack: ["TypeScript"],
+    repo: "https://github.com/Ed-Pino/EleVideo",
   },
   {
     slug: "videoboost-pro",
@@ -141,6 +155,18 @@ export const casos: Caso[] = [
       "Tienda en línea de sneakers: uno de los primeros proyectos de comercio electrónico del portafolio.",
     stack: ["HTML", "CSS"],
     repo: "https://github.com/Ed-Pino/Sneakers_Store",
+  },
+  {
+    slug: "sentiment-analysis",
+    titulo: "Análisis de sentimiento",
+    categoria: "Hackathon",
+    resumen: "API de análisis de sentimiento — hackathon en equipo (Equipo 66)",
+    descripcion:
+      "Proyecto de equipo para un hackathon: una API de análisis de sentimiento construida y presentada en notebooks. Participé como integrante del Equipo 66 junto a otros desarrolladores, dentro de un plazo fijo de competencia.",
+    stack: ["Python", "Jupyter Notebook"],
+    repo: "https://github.com/alexander-fq/hackathon-sentiment-analysis",
+    transparencia:
+      "Esto no es un proyecto propio ni un trabajo de cliente: es un proyecto de equipo para un hackathon. El repositorio original pertenece a otro integrante del Equipo 66 (por eso este enlace apunta a él) y mi fork de trabajo es github.com/Ed-Pino/Sentiment_Analisis. Lo publico como participación en equipo, con el crédito donde corresponde.",
   },
 ]
 
