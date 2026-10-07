@@ -12,10 +12,31 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://softcloudstudio.dev";
+const SITE_TITLE = "SoftCloud Studio | Webs y Apps en Bogotá";
+const SITE_DESCRIPTION =
+  "Creamos páginas web ultra-rápidas con Next.js y apps móviles con Flutter para negocios en Bogotá.";
+
 export const metadata: Metadata = {
-  title: "SoftCloud Studio | Webs y Apps en Bogotá",
-  description:
-    "Creamos páginas web ultra-rápidas con Next.js y apps móviles con Flutter para negocios en Bogotá.",
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "es_CO",
+    url: SITE_URL,
+    siteName: "SoftCloud Studio",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
