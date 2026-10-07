@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og"
 
 export const alt =
-  "SoftCloud Studio — Webs que Google ama, apps que tus clientes usan"
+  "SoftCloud Studio — Software a la medida, e-commerce e integraciones en Bogotá"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
@@ -48,14 +48,14 @@ export default function Image() {
           style={{
             display: "flex",
             flexDirection: "column",
-            fontSize: 78,
+            fontSize: 72,
             lineHeight: 1.15,
             letterSpacing: -2,
           }}
         >
-          <div style={{ display: "flex" }}>Webs que Google ama.</div>
+          <div style={{ display: "flex" }}>Software a la medida,</div>
           <div style={{ display: "flex", color: "#a1a1aa" }}>
-            Apps que tus clientes usan.
+            e-commerce e integraciones.
           </div>
         </div>
 
@@ -68,7 +68,9 @@ export default function Image() {
             color: "#52525c",
           }}
         >
-          <div style={{ display: "flex" }}>Next.js · Flutter · Bogotá</div>
+          <div style={{ display: "flex" }}>
+            Java · Next.js · WhatsApp API · IA
+          </div>
           <div style={{ display: "flex", color: "#18181b" }}>
             softcloudstudio.dev
           </div>

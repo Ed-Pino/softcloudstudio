@@ -1,5 +1,14 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
+import {
+  GITHUB_URL,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TITLE,
+  SITE_URL,
+} from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,23 +21,20 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const SITE_URL = "https://softcloudstudio.dev";
-const SITE_TITLE = "SoftCloud Studio | Webs y Apps en Bogotá";
-const SITE_DESCRIPTION =
-  "Creamos páginas web ultra-rápidas con Next.js y apps móviles con Flutter para negocios en Bogotá.";
-
+// El canonical se define por página, no aquí: si se hereda desde el layout
+// todas las rutas declararían la home como canónica.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: SITE_TITLE,
-  description: SITE_DESCRIPTION,
-  alternates: {
-    canonical: "/",
+  title: {
+    default: SITE_TITLE,
+    template: `%s | ${SITE_NAME}`,
   },
+  description: SITE_DESCRIPTION,
   openGraph: {
     type: "website",
     locale: "es_CO",
     url: SITE_URL,
-    siteName: "SoftCloud Studio",
+    siteName: SITE_NAME,
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
   },
@@ -39,13 +45,47 @@ export const metadata: Metadata = {
   },
 };
 
+// Datos estructurados para buscadores. Solo hechos verificables: no se
+// declara dirección exacta, teléfono ni clientes.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: SITE_NAME,
+  url: SITE_URL,
+  description: SITE_DESCRIPTION,
+  areaServed: { "@type": "Country", name: "Colombia" },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Bogotá",
+    addressCountry: "CO",
+  },
+  sameAs: [GITHUB_URL],
+  knowsAbout: [
+    "Desarrollo de software a la medida",
+    "Comercio electrónico",
+    "APIs REST",
+    "Integración con WhatsApp",
+    "Automatización con IA",
+  ],
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="es"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="flex min-h-full flex-col bg-white text-zinc-900">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+        <SiteHeader />
+        {children}
+        <SiteFooter />
+      </body>
     </html>
   );
 }

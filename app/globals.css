@@ -128,3 +128,21 @@
     @apply font-sans;
   }
 }
+
+/* Marquesina de stack. CSS plano a propósito: declarar --animate-* dentro de
+   `@theme inline` no registró la animación en la build de Tailwind v4. */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
