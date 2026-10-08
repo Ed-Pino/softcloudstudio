@@ -17,11 +17,12 @@ export const metadata: Metadata = {
 }
 
 const PERFIL = [
-  "Desarrollo backend en Java con Spring Boot: APIs REST, modelado de datos, autenticación y roles.",
-  "Frontend en TypeScript y React, con interfaces de administración pensadas para el día a día del equipo.",
-  "Plataformas de e-commerce: catálogo, pagos, inventario y envíos conectados a la operación.",
-  "Herramientas internas y automatizaciones que reemplazan trabajo manual.",
-  "Despliegue y operación en la nube sobre AWS y Oracle Cloud.",
+  "Especialista en backend con Java 17, Spring Boot 3 y Spring Data JPA: APIs RESTful, persistencia en PostgreSQL, autenticación segura con JWT y gestión de roles.",
+  "Frontend moderno con React, TypeScript y Next.js: interfaces limpias y Progressive Web Apps (PWA) orientadas a la experiencia de usuario.",
+  "Plataformas de e-commerce y finanzas: catálogos transaccionales, operaciones de crédito, órdenes de trabajo y control operativo de campo.",
+  "Integración de APIs e IA: automatización con OpenAI, canales de WhatsApp Business y correo para eliminar trabajo manual.",
+  "Procesamiento multimedia y herramientas de video: conversión de formatos, recorte y optimización de contenido.",
+  "Despliegue y arquitectura en la nube sobre AWS y Oracle Cloud.",
 ]
 
 const PROCESO = [
@@ -53,14 +54,21 @@ const PROCESO = [
 
 export default function NosotrosPage() {
   return (
-    <main className="flex-1">
+    <main className="relative flex-1">
+      {/* AMBIENT GLOW */}
+      <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[450px] w-full max-w-6xl -translate-x-1/2 bg-gradient-to-b from-indigo-100/40 via-sky-50/20 to-transparent blur-3xl" />
+
       {/* HERO */}
       <section className="mx-auto max-w-6xl px-6 pt-20 pb-16 md:pt-28 md:pb-24">
-        <p className="text-xs uppercase tracking-[0.25em] text-zinc-400">
-          Estudio de desarrollo — {LOCATION}
-        </p>
+        <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200/80 bg-indigo-50/70 px-3.5 py-1 text-xs font-medium text-indigo-900 shadow-xs">
+          <span className="h-2 w-2 rounded-full bg-indigo-600" />
+          <span>Estudio de desarrollo — {LOCATION}</span>
+        </div>
         <h1 className="mt-8 max-w-4xl text-4xl font-bold leading-[1.08] tracking-tight md:text-6xl">
-          Nosotros
+          Sobre{" "}
+          <span className="bg-gradient-to-r from-indigo-600 via-blue-600 to-indigo-700 bg-clip-text text-transparent">
+            SoftCloud Studio
+          </span>
         </h1>
         <p className="mt-8 max-w-2xl text-lg leading-relaxed text-zinc-600">
           {SITE_NAME} es un estudio de desarrollo en Bogotá. Somos pocos, sin
@@ -71,21 +79,21 @@ export default function NosotrosPage() {
       </section>
 
       {/* PERFIL */}
-      <section className="border-t border-zinc-200 bg-zinc-50">
+      <section className="border-t border-zinc-200/80 bg-zinc-50/60">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-600">
+            Equipo &amp; Experiencia
+          </p>
+          <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
             Quién está detrás
           </h2>
           <div className="mt-14 grid gap-10 md:grid-cols-2">
             <div>
-              <h3 className="text-xl font-semibold tracking-tight">
+              <h3 className="text-xl font-bold tracking-tight text-zinc-900">
                 Ed Pino — desarrollador full-stack
               </h3>
               <p className="mt-4 leading-relaxed text-zinc-600">
-                Desarrollador full-stack en Bogotá, con experiencia en Java y
-                Spring Boot, TypeScript y desarrollo frontend. Ha construido APIs
-                REST, plataformas de e-commerce y herramientas internas para
-                equipos que necesitaban dejar de operar a mano.
+                Desarrollador full-stack en Bogotá especializado en el ecosistema Java (Java 17, Spring Boot 3, Spring Data JPA) y frontend moderno con React y TypeScript. Con experiencia en plataformas de gestión operativa (PWA), e-commerce, procesamiento multimedia e integraciones avanzadas con OpenAI y WhatsApp.
               </p>
               <p className="mt-4 leading-relaxed text-zinc-600">
                 El código de este sitio y de los proyectos listados está público
@@ -94,7 +102,7 @@ export default function NosotrosPage() {
                   href={GITHUB_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-medium underline decoration-zinc-300 underline-offset-4 transition-colors hover:decoration-zinc-900"
+                  className="font-medium text-indigo-600 underline decoration-indigo-300 underline-offset-4 transition-colors hover:text-indigo-800 hover:decoration-indigo-600"
                 >
                   GitHub
                 </a>
@@ -106,9 +114,12 @@ export default function NosotrosPage() {
               {PERFIL.map((linea) => (
                 <li
                   key={linea}
-                  className="rounded-2xl border border-zinc-200 bg-white p-8 text-sm leading-relaxed text-zinc-600"
+                  className="rounded-2xl border border-zinc-200/80 bg-white p-6 text-sm leading-relaxed text-zinc-600 shadow-xs transition-all hover:border-indigo-200 hover:shadow-md hover:shadow-indigo-500/5"
                 >
-                  {linea}
+                  <div className="flex items-start gap-3">
+                    <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-indigo-600" />
+                    <span>{linea}</span>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -117,9 +128,12 @@ export default function NosotrosPage() {
       </section>
 
       {/* POR QUÉ NO VERÁS LOGOS DE CLIENTES */}
-      <section className="border-t border-zinc-200">
+      <section className="border-t border-zinc-200/80 bg-white">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-          <h2 className="max-w-3xl text-3xl font-bold tracking-tight md:text-4xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-600">
+            Transparencia
+          </p>
+          <h2 className="mt-2 max-w-3xl text-3xl font-bold tracking-tight md:text-4xl">
             Por qué no verás logos de clientes aquí
           </h2>
           <div className="mt-8 max-w-2xl space-y-4">
@@ -147,19 +161,25 @@ export default function NosotrosPage() {
       </section>
 
       {/* PROCESO */}
-      <section className="border-t border-zinc-200 bg-zinc-50">
+      <section className="border-t border-zinc-200/80 bg-zinc-50/50">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-600">
+            Metodología
+          </p>
+          <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
             Proceso
           </h2>
-          <div className="mt-14 grid gap-10 md:grid-cols-4">
+          <div className="mt-14 grid gap-8 md:grid-cols-4">
             {PROCESO.map((etapa) => (
-              <div key={etapa.paso}>
-                <span className="text-sm text-zinc-400">{etapa.paso}</span>
-                <h3 className="mt-3 text-xl font-semibold tracking-tight">
+              <div
+                key={etapa.paso}
+                className="rounded-2xl border border-zinc-200/70 bg-white p-6 shadow-xs transition-all hover:border-indigo-200"
+              >
+                <span className="font-mono text-xs font-bold text-indigo-600">{etapa.paso}</span>
+                <h3 className="mt-3 text-lg font-bold tracking-tight text-zinc-900">
                   {etapa.titulo}
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-zinc-600">
+                <p className="mt-2 text-sm leading-relaxed text-zinc-600">
                   {etapa.texto}
                 </p>
               </div>
@@ -169,20 +189,23 @@ export default function NosotrosPage() {
       </section>
 
       {/* STACK */}
-      <section className="border-t border-zinc-200">
+      <section className="border-t border-zinc-200/80 bg-white">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-600">
+            Ecosistema
+          </p>
+          <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
             Stack
           </h2>
           <p className="mt-6 max-w-2xl leading-relaxed text-zinc-600">
             Herramientas maduras y de código abierto, elegidas por lo que el
             proyecto necesita. Nada exótico que después nadie pueda mantener.
           </p>
-          <ul className="mt-10 flex flex-wrap gap-2">
+          <ul className="mt-10 flex flex-wrap gap-2.5">
             {STACK.map((tecnologia) => (
               <li
                 key={tecnologia}
-                className="rounded-full border border-zinc-200 px-3 py-1 text-xs text-zinc-600"
+                className="rounded-full border border-zinc-200/80 bg-zinc-50 px-3.5 py-1 text-xs font-medium text-zinc-700 transition-colors hover:border-indigo-300 hover:text-indigo-600"
               >
                 {tecnologia}
               </li>
@@ -192,9 +215,13 @@ export default function NosotrosPage() {
       </section>
 
       {/* CTA */}
-      <section className="border-t border-zinc-200 bg-zinc-50">
+      <section className="border-t border-indigo-100/80 bg-gradient-to-b from-indigo-50/40 via-white to-zinc-50">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-          <h2 className="max-w-3xl text-3xl font-bold leading-tight tracking-tight md:text-5xl">
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-1 text-xs font-medium text-emerald-800">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+            Sin intermediarios
+          </div>
+          <h2 className="mt-6 max-w-3xl text-3xl font-bold leading-tight tracking-tight md:text-5xl">
             Si tu proyecto encaja con lo que hacemos, hablemos.
           </h2>
           <p className="mt-6 max-w-2xl leading-relaxed text-zinc-600">
@@ -207,8 +234,9 @@ export default function NosotrosPage() {
               target="_blank"
               rel="noopener noreferrer"
               className={buttonVariants({
+                variant: "whatsapp",
                 size: "lg",
-                className: "rounded-full px-8",
+                className: "rounded-full px-8 shadow-lg shadow-emerald-600/25",
               })}
             >
               Escribir por WhatsApp
@@ -219,9 +247,9 @@ export default function NosotrosPage() {
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-medium underline decoration-zinc-300 underline-offset-4 transition-colors hover:decoration-zinc-900"
+              className="text-sm font-semibold text-zinc-700 underline decoration-zinc-300 underline-offset-4 transition-colors hover:text-indigo-600 hover:decoration-indigo-400"
             >
-              Contarles mi caso
+              Contarles mi caso →
             </a>
           </div>
         </div>

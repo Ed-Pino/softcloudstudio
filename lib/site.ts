@@ -31,16 +31,19 @@ export const NAV = [
 
 // Fuente única del stack: la usan la home, /servicios y /nosotros.
 export const STACK = [
-  "Java",
-  "Spring Boot",
+  "Java 17",
+  "Spring Boot 3",
+  "Spring Data JPA",
   "TypeScript",
   "React",
   "Next.js",
+  "PWA",
   "PostgreSQL",
-  "Tailwind CSS",
+  "REST APIs",
+  "JWT",
   "AWS",
   "Oracle Cloud",
   "OpenAI API",
   "WhatsApp API",
-  "Vercel",
+  "Tailwind CSS",
 ]
