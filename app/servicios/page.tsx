@@ -4,9 +4,9 @@ import { buttonVariants } from "@/components/ui/button"
 import { CTA_HREF, LOCATION, STACK, whatsappLink } from "@/lib/site"
 
 export const metadata: Metadata = {
-  title: "Servicios | Software a medida, E-commerce y DevOps",
+  title: "Software a medida, e-commerce y DevOps",
   description:
-    "Software a la medida, e-commerce, integraciones con IA y DevOps en Colombia y USA. Proyecto cerrado, precio fijo, Terraform, CI/CD y AWS. Bogotá - Nearshore.",
+    "Software a la medida, e-commerce, integraciones con IA y DevOps para empresas en Colombia. Proyecto cerrado, precio fijo, Terraform, CI/CD y AWS. Bogotá.",
   alternates: { canonical: "/servicios" },
 }
 
@@ -42,8 +42,8 @@ const SERVICIOS = [
     numero: "04",
     titulo: "DevOps as a Service",
     texto:
-      "NUEVO: De git push a producción sin miedo. Infra as Code, CI/CD, monitoreo y optimización de factura AWS. Mismo timezone USA, 50% menos costo.",
-    capacidades: ["Terraform / IaC", "CI/CD Pipelines", "Docker / K8s", "AWS Cost -30%", "Monitoreo 24/7"],
+      "NUEVO: De git push a producción sin miedo. Infra as Code, CI/CD, monitoreo y optimización de factura AWS.",
+    capacidades: ["Terraform / IaC", "CI/CD Pipelines", "Docker", "AWS Cost -30%", "Monitoreo 24/7"],
     accent: "border-t-orange-500",
     tag: "bg-orange-50/80 text-orange-700 border-orange-200/60",
   },
@@ -66,7 +66,7 @@ export default function ServiciosPage() {
       <section className="mx-auto max-w-6xl px-6 pt-20 pb-16 md:pt-28 md:pb-24">
         <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200/80 bg-indigo-50/70 px-3.5 py-1 text-xs font-medium text-indigo-900">
           <span className="h-2 w-2 rounded-full bg-indigo-600" />
-          <span>Servicios — {LOCATION} — Nearshore USA</span>
+          <span>Servicios — {LOCATION}</span>
         </div>
         <h1 className="mt-8 max-w-4xl font-serif text-4xl font-bold leading-[1.08] tracking-tight md:text-6xl">
           Servicios de{" "}
@@ -116,9 +116,6 @@ export default function ServiciosPage() {
                 {t}
               </li>
             ))}
-            <li className="rounded-full border border-orange-200 bg-orange-50 px-3.5 py-1 text-xs font-bold text-orange-700">+ Terraform</li>
-            <li className="rounded-full border border-orange-200 bg-orange-50 px-3.5 py-1 text-xs font-bold text-orange-700">+ Docker</li>
-            <li className="rounded-full border border-orange-200 bg-orange-50 px-3.5 py-1 text-xs font-bold text-orange-700">+ AWS / Vercel</li>
           </ul>
         </div>
       </section>

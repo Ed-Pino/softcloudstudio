@@ -43,6 +43,7 @@ export const STACK = [
   "OpenAI API",
   "WhatsApp API",
   "Tailwind CSS",
+  "Terraform",
   "Docker",
   "CI/CD",
   "Vercel",
