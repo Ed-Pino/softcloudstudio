@@ -1,13 +1,11 @@
 export const SITE_URL = "https://softcloudstudio.dev"
 export const SITE_NAME = "SoftCloud Studio"
 export const SITE_TITLE =
-  "SoftCloud Studio | Software a la medida, e-commerce y web en Bogotá"
+  "SoftCloud Studio | Software a la medida, e-commerce, DevOps y web en Bogotá - Nearshore USA"
 export const SITE_DESCRIPTION =
-  "Estudio de desarrollo en Bogotá. Construimos software a la medida, tiendas online, APIs e integraciones con WhatsApp e IA para empresas en Colombia."
+  "Estudio de desarrollo en Bogotá. Software a la medida, e-commerce, APIs, WhatsApp, IA y DevOps as a Service. Terraform, Docker, CI/CD, AWS. Nearshore para USA."
 
 export const LOCATION = "Bogotá, Colombia"
-// Constante a propósito: usar new Date() en un componente haría dinámica
-// cada página con cacheComponents: true (next.config.ts).
 export const COPYRIGHT_YEAR = 2026
 export const GITHUB_URL = "https://github.com/Ed-Pino"
 
@@ -29,7 +27,6 @@ export const NAV = [
   { href: "/contacto", label: "Contacto" },
 ] as const
 
-// Fuente única del stack: la usan la home, /servicios y /nosotros.
 export const STACK = [
   "Java 17",
   "Spring Boot 3",
@@ -46,4 +43,9 @@ export const STACK = [
   "OpenAI API",
   "WhatsApp API",
   "Tailwind CSS",
-]
+  "Terraform",
+  "Docker",
+  "Kubernetes",
+  "CI/CD",
+  "Vercel",
+] as const
