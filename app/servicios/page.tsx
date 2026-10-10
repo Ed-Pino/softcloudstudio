@@ -1,5 +1,6 @@
 import Link from "next/link"
 import type { Metadata } from "next"
+import { Pricing } from "@/components/pricing"
 import { buttonVariants } from "@/components/ui/button"
 import { CTA_HREF, LOCATION, STACK, whatsappLink } from "@/lib/site"
 
@@ -134,6 +135,8 @@ export default function ServiciosPage() {
           </div>
         </div>
       </section>
+
+      <Pricing />
 
       <section className="border-t bg-black text-white">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28 flex flex-col md:flex-row justify-between gap-10">
