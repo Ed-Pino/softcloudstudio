@@ -3,12 +3,12 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import {
-  GITHUB_URL,
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_TITLE,
   SITE_URL,
 } from "@/lib/site";
+import { grafoSitio, jsonLdScript } from "@/lib/schema";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -45,30 +45,8 @@ export const metadata: Metadata = {
   },
 };
 
-// Datos estructurados para buscadores. Solo hechos verificables: no se
-// declara dirección exacta, teléfono ni clientes.
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: SITE_NAME,
-  url: SITE_URL,
-  description: SITE_DESCRIPTION,
-  areaServed: { "@type": "Country", name: "Colombia" },
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Bogotá",
-    addressCountry: "CO",
-  },
-  sameAs: [GITHUB_URL],
-  knowsAbout: [
-    "Desarrollo de software a la medida",
-    "Comercio electrónico",
-    "APIs REST",
-    "Integración con WhatsApp",
-    "Automatización con IA",
-  ],
-};
-
+// Datos estructurados (JSON-LD) definidos en lib/schema.ts: un grafo con la
+// organización y el sitio web. Solo hechos verificables.
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -78,9 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col bg-white text-zinc-900 selection:bg-indigo-500 selection:text-white">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-          }}
+          dangerouslySetInnerHTML={{ __html: jsonLdScript(grafoSitio) }}
         />
         <SiteHeader />
         {children}

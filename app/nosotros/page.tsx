@@ -10,9 +10,9 @@ import {
 } from "@/lib/site"
 
 export const metadata: Metadata = {
-  title: "Nosotros",
+  title: "Estudio de desarrollo de software en Bogotá",
   description:
-    "Estudio de desarrollo en Bogotá. Perfil, proceso de trabajo y stack con el que construimos software a la medida, e-commerce e integraciones.",
+    "Estudio de desarrollo en Bogotá: perfil, proceso de trabajo y stack con el que construimos software a la medida, e-commerce e integraciones. Java, Spring Boot, Next.js y AWS.",
   alternates: { canonical: "/nosotros" },
 }
 

@@ -5,9 +5,9 @@ import { buttonVariants } from "@/components/ui/button"
 import { CTA_HREF, LOCATION, STACK, whatsappLink } from "@/lib/site"
 
 export const metadata: Metadata = {
-  title: "Software a medida, e-commerce y DevOps",
+  title: "Desarrollo de software a la medida en Bogotá",
   description:
-    "Software a la medida, e-commerce, integraciones con IA y DevOps para empresas en Colombia. Proyecto cerrado, precio fijo, Terraform, CI/CD y AWS. Bogotá.",
+    "Desarrollo de software a la medida, e-commerce, integraciones con IA y DevOps en Bogotá. Proyecto cerrado con precio fijo, entregas semanales y 30 días de soporte.",
   alternates: { canonical: "/servicios" },
 }
 

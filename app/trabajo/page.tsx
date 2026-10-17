@@ -4,9 +4,9 @@ import { casos } from "@/lib/casos"
 import { GITHUB_URL } from "@/lib/site"
 
 export const metadata: Metadata = {
-  title: "Trabajo",
+  title: "Portafolio de desarrollo de software",
   description:
-    "Proyectos de desarrollo de SoftCloud Studio: e-commerce, APIs REST, integraciones con WhatsApp e IA. Código y demos públicas.",
+    "Proyectos reales de desarrollo en Bogotá: e-commerce, APIs REST, integraciones con WhatsApp e IA, y DevOps. Cada caso enlaza a su repositorio público.",
   alternates: { canonical: "/trabajo" },
 }
 

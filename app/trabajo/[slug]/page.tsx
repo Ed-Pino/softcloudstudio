@@ -3,7 +3,8 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { buttonVariants } from "@/components/ui/button"
 import { casos, getCaso, getCategoriaStyle } from "@/lib/casos"
-import { whatsappLink } from "@/lib/site"
+import { jsonLdScript, migasDePan } from "@/lib/schema"
+import { SITE_URL, whatsappLink } from "@/lib/site"
 
 export function generateStaticParams() {
   return casos.map((caso) => ({ slug: caso.slug }))
@@ -50,6 +51,21 @@ export default async function CasoPage({
 
   return (
     <main className="relative flex-1">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLdScript(
+            migasDePan([
+              { nombre: "Inicio", url: SITE_URL },
+              { nombre: "Trabajo", url: `${SITE_URL}/trabajo` },
+              {
+                nombre: caso.titulo,
+                url: `${SITE_URL}/trabajo/${caso.slug}`,
+              },
+            ])
+          ),
+        }}
+      />
       {/* AMBIENT GLOW */}
       <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[450px] w-full max-w-6xl -translate-x-1/2 bg-gradient-to-b from-indigo-100/40 via-sky-50/20 to-transparent blur-3xl" />
 

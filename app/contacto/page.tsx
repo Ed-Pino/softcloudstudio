@@ -3,9 +3,9 @@ import { buttonVariants } from "@/components/ui/button"
 import { CTA_HREF, GITHUB_URL, LOCATION, whatsappLink } from "@/lib/site"
 
 export const metadata: Metadata = {
-  title: "Contacto",
+  title: "Cotiza tu proyecto de software en Bogotá",
   description:
-    "Cuéntanos qué necesitas y respondemos el mismo día hábil por WhatsApp. Desarrollo de software a la medida, e-commerce e integraciones en Bogotá, Colombia.",
+    "Cotiza tu proyecto de software en Bogotá: escríbenos por WhatsApp y respondemos el mismo día hábil con una idea clara de alcance y precio. Sin compromiso.",
   alternates: { canonical: "/contacto" },
 }
 
