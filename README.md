@@ -16,7 +16,7 @@
 
 <p align="center">
   <strong>Build smarter digital products for modern businesses.</strong><br />
-  Software a la medida, comercio digital, integraciones y automatización para empresas en Colombia.
+  Software a la medida, comercio digital, integraciones y automatización para empresas.
 </p>
 
 ## Overview
