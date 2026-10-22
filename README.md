@@ -1,30 +1,54 @@
 # SoftCloud Studio
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Next.js-16.4.0-black?logo=next.js&logoColor=white" alt="Next.js 16" />
-  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" alt="TypeScript 5" />
-  <img src="https://img.shields.io/badge/Tailwind-4-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4" />
-  <img src="https://img.shields.io/badge/Status-Activo-22C55E" alt="Status activo" />
+  <a href="https://softcloudstudio.dev" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/SoftCloud-Studio-0F172A?style=for-the-badge&logo=next.js&logoColor=white" alt="SoftCloud Studio" />
+  </a>
 </p>
 
 <p align="center">
-  <strong>Software a la medida, e-commerce y soluciones digitales para empresas en Colombia.</strong>
+  <img src="https://img.shields.io/badge/Next.js-16-000000?style=flat-square&logo=next.js&logoColor=white" alt="Next.js 16" />
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React 19" />
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript 5" />
+  <img src="https://img.shields.io/badge/Tailwind-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Status-Active-22C55E?style=flat-square" alt="Active status" />
 </p>
 
-## ✨ Visión general
+<p align="center">
+  <strong>Build smarter digital products for modern businesses.</strong><br />
+  Software a la medida, comercio digital, integraciones y automatización para empresas en Colombia.
+</p>
 
-SoftCloud Studio es un estudio de desarrollo que crea productos digitales para negocios que necesitan crecer con tecnología clara, escalable y orientada a resultados. Desde tiendas online y sistemas internos hasta integraciones con WhatsApp, IA y APIs, ayudamos a transformar procesos operativos en herramientas reales que generan valor.
+## Overview
 
-## 🧩 Qué construimos
+SoftCloud Studio is a product and software studio helping companies turn operational pain into scalable digital solutions. We design and build modern web experiences, internal systems, e-commerce platforms, automation flows, and API integrations that connect the real business to the technology behind it.
 
-- Software a la medida para procesos internos
-- Tiendas en línea y comercio digital
-- APIs REST y servicios backend
-- Integraciones con WhatsApp, correo y herramientas externas
-- Paneles administrativos y dashboards
-- Automatizaciones con IA y flujos de negocio
+Our focus is simple: create products that are useful, fast, measurable, and ready for growth.
 
-## 🛠 Stack tecnológico
+## Why SoftCloud Studio
+
+- Product thinking from day one
+- Clear architecture and maintainable code
+- Fast delivery with business-oriented milestones
+- Multi-channel digital experiences
+- Integration with WhatsApp, email, AI tools, and cloud services
+- Obsession with usability and conversion
+
+## Core services
+
+### 1. Custom software
+
+Internal tools, business apps, dashboards, CRMs, inventory systems, workflows, and operational platforms tailored to real business needs.
+
+### 2. E-commerce
+
+Online stores with a strong focus on conversion, UX, product presentation, checkout flow, payments, and digital sales experience.
+
+### 3. Integrations & automation
+
+Connect your systems with WhatsApp, email, APIs, cloud services, data platforms, and AI-powered automations to remove repetitive work.
+
+## Stack
 
 - Next.js 16
 - React 19
@@ -33,9 +57,10 @@ SoftCloud Studio es un estudio de desarrollo que crea productos digitales para n
 - shadcn/ui
 - Base UI
 - Lucide React
-- ESLint + TypeScript
+- ESLint
+- Node.js 20+
 
-## 📁 Estructura del proyecto
+## Project structure
 
 ```text
 .
@@ -69,31 +94,32 @@ SoftCloud Studio es un estudio de desarrollo que crea productos digitales para n
 ├── next.config.ts
 ├── package.json
 ├── tsconfig.json
-└── README.md
+├── README.md
+└── package-lock.json
 ```
 
-## 🚀 Inicio rápido
+## Getting started
 
-### Requisitos
+### Prerequisites
 
 - Node.js 20+
-- npm o pnpm
+- npm
 
-### Instalación
+### Install dependencies
 
 ```bash
 npm install
 ```
 
-### Desarrollo local
+### Run locally
 
 ```bash
 npm run dev
 ```
 
-Abre `http://localhost:3000` para ver la app.
+Open http://localhost:3000 to view the app.
 
-### Producción
+### Production build
 
 ```bash
 npm run build
@@ -106,31 +132,20 @@ npm run start
 npm run lint
 ```
 
-## 📦 Scripts disponibles
+## Business model
 
-```json
-{
-  "dev": "next dev",
-  "build": "next build",
-  "start": "next start",
-  "lint": "eslint"
-}
-```
+This repository represents the digital presence and product experience of SoftCloud Studio. It is designed as a modern, conversion-focused marketing and portfolio site that communicates expertise, showcases selected work, and drives high-intent business conversations.
 
-## 🌐 Sitio
+## Contact
 
-- Web: https://softcloudstudio.dev
+- Website: https://softcloudstudio.dev
 - GitHub: https://github.com/Ed-Pino
 - WhatsApp: https://wa.me/573142533524
 
-## 📍 Enfoque del proyecto
+## Mission
 
-Este repositorio representa la presencia digital de SoftCloud Studio: una landing page moderna, elegante y orientada a conversiones, diseñada para comunicar servicios, mostrar casos de trabajo y facilitar contacto con clientes potenciales.
-
-## 🤝 Contacto
-
-Si quieres cotizar un proyecto o hablar sobre una idea, puedes escribirnos directamente por WhatsApp o visitar la web oficial.
+We help businesses move faster with better digital systems, cleaner experiences, and technology that actually supports growth.
 
 ---
 
-Hecho con Next.js y pasión por construir tecnología útil.
+Built for product-minded companies and ambitious digital transformation.
