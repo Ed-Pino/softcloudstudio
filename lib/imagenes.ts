@@ -20,6 +20,10 @@ export const IMAGENES: Record<string, string> = {
   "liter-alura": "/literalura.png",
   "talent-circle": "/talentcircle.png",
   mokepones: "/mokepon.png",
+  "heavy-trucks": "/HeavyTrucks.webp",
+  "rent4u": "/Rent4you.webp",
+  "sneakers-store": "/sneakers.webp",
+  "sentiment-analysis": "/sentimentanalisis.webp",
 }
 
 export function getImagen(slug: string): string | undefined {
