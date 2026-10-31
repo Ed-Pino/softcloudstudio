@@ -5,9 +5,9 @@ import { buttonVariants } from "@/components/ui/button"
 import { CTA_HREF, LOCATION, STACK, whatsappLink } from "@/lib/site"
 
 export const metadata: Metadata = {
-  title: "Desarrollo de software a la medida en Bogotá",
+  title: "Servicios de desarrollo web, apps y software a la medida en Bogotá",
   description:
-    "Desarrollo de software a la medida, e-commerce, integraciones con IA y DevOps en Bogotá. Proyecto cerrado con precio fijo, entregas semanales y 30 días de soporte.",
+    "Desarrollo web, apps, sistemas a medida, integraciones con IA y DevOps para empresas en Bogotá y Colombia.",
   alternates: { canonical: "/servicios" },
 }
 
@@ -16,7 +16,7 @@ const SERVICIOS = [
     numero: "01",
     titulo: "Software a la medida",
     texto:
-      "Sistemas que se ajustan a cómo opera tu empresa, no al revés. Backend, panel de administración y APIs para dejar de sostener procesos en hojas de cálculo.",
+      "Sistemas que se adaptan a la forma real de operar tu negocio, sin forzar procesos ni crear fricción interna.",
     capacidades: ["APIs RESTful y JWT", "PWA y paneles internos", "PostgreSQL", "Java", "Spring"],
     accent: "border-t-indigo-500",
     tag: "bg-indigo-50/80 text-indigo-700 border-indigo-200/60",
@@ -25,7 +25,7 @@ const SERVICIOS = [
     numero: "02",
     titulo: "E-commerce",
     texto:
-      "Tiendas conectadas a la operación real: inventario, pagos y envíos. No una vitrina que hay que mantener a mano.",
+      "Tiendas conectadas a la operación real: inventario, pagos y envíos, con una experiencia de compra clara y confiable.",
     capacidades: ["Catálogo y variantes", "Carrito y checkout", "Pasarelas de pago", "Inventario", "Envíos"],
     accent: "border-t-emerald-500",
     tag: "bg-emerald-50/80 text-emerald-700 border-emerald-200/60",
@@ -34,7 +34,7 @@ const SERVICIOS = [
     numero: "03",
     titulo: "Web development",
     texto:
-      "Diseñamos y construimos sitios web modernos, rápidos y enfocados en conversiones. Cada proyecto combina estrategia visual, experiencia de usuario y desarrollo listo para crecer.",
+      "Diseñamos y desarrollamos sitios modernos, rápidos y orientados a conversión, con una presencia digital sólida y profesional.",
     capacidades: ["Next.js", "TypeScript", "SEO técnico", "Diseño UX/UI", "Landing pages y sitios corporativos"],
     accent: "border-t-cyan-500",
     tag: "bg-cyan-50/80 text-cyan-700 border-cyan-200/60",
@@ -43,7 +43,7 @@ const SERVICIOS = [
     numero: "04",
     titulo: "Integraciones e IA",
     texto:
-      "Automatizamos lo manual: mensajes, notificaciones, reportes. Conectamos tus herramientas y sumamos IA donde ahorra tiempo de verdad.",
+      "Automatizamos tareas repetitivas y conectamos tus herramientas para ahorrar tiempo y mejorar la operación diaria.",
     capacidades: ["WhatsApp Business", "Correo transaccional", "OpenAI", "Automatización", "Webhooks"],
     accent: "border-t-purple-500",
     tag: "bg-purple-50/80 text-purple-700 border-purple-200/60",
@@ -52,7 +52,7 @@ const SERVICIOS = [
     numero: "05",
     titulo: "DevOps as a Service",
     texto:
-      "NUEVO: De git push a producción sin miedo. Infra as Code, CI/CD, monitoreo y optimización de factura AWS.",
+      "Acompañamos la parte técnica de producción: infraestructura, despliegues, monitoreo y optimización continua del entorno.",
     capacidades: ["Terraform / IaC", "CI/CD Pipelines", "Docker", "AWS Cost -30%", "Monitoreo 24/7"],
     accent: "border-t-orange-500",
     tag: "bg-orange-50/80 text-orange-700 border-orange-200/60",
@@ -79,14 +79,11 @@ export default function ServiciosPage() {
           <span>Servicios — {LOCATION}</span>
         </div>
         <h1 className="mt-8 max-w-4xl font-serif text-4xl font-bold leading-[1.08] tracking-tight md:text-6xl">
-          Servicios de{" "}
-          <span className="bg-gradient-to-r from-indigo-600 via-blue-600 to-indigo-700 bg-clip-text text-transparent">
-            desarrollo y DevOps
-          </span>
+          Desarrollo de software para empresas que quieren crecer.
         </h1>
         <p className="mt-8 max-w-2xl text-lg leading-relaxed text-zinc-600">
           Estudio full-stack + DevOps: construimos software a la medida, e-commerce e integraciones.
-          Backend Java y Spring, frontend Next.js y <strong>DevOps que escala de MVP a millones.</strong>
+          Backend con Java y Spring, frontend con Next.js y <strong>DevOps que escala con tu negocio.</strong>
         </p>
         <div className="mt-10 flex flex-wrap gap-3">
           <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "whatsapp", size: "lg", className: "rounded-full px-7 shadow-md" })}>
@@ -100,7 +97,7 @@ export default function ServiciosPage() {
 
       <section className="border-t border-zinc-200/80 bg-[#F8F8F7]">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-          <h2 className="font-serif text-3xl font-bold tracking-tight md:text-4xl">Cinco formas en que podemos trabajar juntos</h2>
+          <h2 className="font-serif text-3xl font-bold tracking-tight md:text-4xl">Cinco maneras de acompañarte</h2>
           <div className="mt-14 grid gap-8 md:grid-cols-2 xl:grid-cols-5">
             {SERVICIOS.map((s) => (
               <div key={s.titulo} className={`flex flex-col rounded-[32px] border bg-white p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl ${s.accent} border-t-4`}>
