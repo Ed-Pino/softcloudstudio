@@ -1,7 +1,7 @@
 export const STACK = [
   "Java",
-  "Spring Boot",
-  "Spring Data JPA",
+  "Spring",
+  "JPA",
   "TypeScript",
   "React",
   "Next.js",
