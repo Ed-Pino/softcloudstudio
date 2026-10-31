@@ -1,5 +1,8 @@
-import { buttonVariants } from "@/components/ui/button"
+import Image from "next/image"
 import Link from "next/link"
+import { buttonVariants } from "@/components/ui/button"
+import { casos } from "@/lib/casos"
+import { getImagen } from "@/lib/imagenes"
 
 const WHATSAPP_URL = "https://wa.me/573142533524"
 const WHATSAPP_QUOTE_URL = `${WHATSAPP_URL}?text=${encodeURIComponent(
@@ -7,6 +10,8 @@ const WHATSAPP_QUOTE_URL = `${WHATSAPP_URL}?text=${encodeURIComponent(
 )}`
 
 export default function Home() {
+  const proyectosDestacados = casos.slice(0, 6)
+
   return (
     <main className="min-h-screen bg-white text-zinc-900">
       {/* NAV */}
@@ -32,12 +37,12 @@ export default function Home() {
           Apps que tus clientes usan.
         </h1>
         <p className="mt-6 text-lg text-zinc-600 max-w-2xl mx-auto">
-          En SoftCloud Studio creamos páginas ultra-rápidas con Next.js 16.4.0 y aplicaciones móviles con Flutter 3.13.0. Posicionamos tu negocio en Google 
+          En SoftCloud Studio creamos páginas ultra-rápidas con Next.js 16.4.0 y aplicaciones móviles con Flutter 3.13.0. Posicionamos tu negocio en Google
           y apps móviles con Flutter. Pack completo para tu negocio en Bogotá.
         </p>
         <div className="mt-8 flex gap-4 justify-center">
           <Link
-            href="#servicios"
+            href="/trabajo"
             className={buttonVariants({
               size: "lg",
               className: "rounded-full px-8",
@@ -78,6 +83,77 @@ export default function Home() {
             <p className="text-zinc-400 mt-2">Web + App conectadas. La mejor oferta.</p>
             <p className="mt-4 font-bold">Desde $4.5M</p>
           </div>
+        </div>
+      </section>
+
+      {/* PORTAFOLIO DESTACADO */}
+      <section className="mx-auto max-w-6xl px-6 py-20">
+        <div className="flex items-end justify-between gap-4 flex-wrap">
+          <div>
+            <p className="text-sm font-medium uppercase tracking-[0.2em] text-zinc-500">
+              Portafolio
+            </p>
+            <h2 className="mt-3 text-3xl md:text-5xl font-bold tracking-tight">
+              Proyectos recientes
+            </h2>
+          </div>
+
+          <Link
+            href="/trabajo"
+            className="text-sm font-medium text-zinc-700 underline decoration-zinc-300 underline-offset-4 hover:text-indigo-600 hover:decoration-indigo-400"
+          >
+            Ver todos
+          </Link>
+        </div>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {proyectosDestacados.map((caso) => {
+            const imageSrc = getImagen(caso.slug)
+
+            return (
+              <Link
+                key={caso.slug}
+                href={`/trabajo/${caso.slug}`}
+                className="group overflow-hidden rounded-2xl border border-zinc-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-xl"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden bg-zinc-100">
+                  {imageSrc ? (
+                    <Image
+                      src={imageSrc}
+                      alt={`Proyecto ${caso.titulo}`}
+                      fill
+                      sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-zinc-100 text-xs uppercase tracking-[0.25em] text-zinc-500">
+                      {caso.categoria}
+                    </div>
+                  )}
+                </div>
+
+                <div className="p-5">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-indigo-700">
+                      {caso.categoria}
+                    </span>
+                    {caso.destacado ? (
+                      <span className="rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-amber-700">
+                        Destacado
+                      </span>
+                    ) : null}
+                  </div>
+
+                  <h3 className="mt-4 text-xl font-bold tracking-tight text-zinc-900 group-hover:text-indigo-600">
+                    {caso.titulo}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-zinc-600">
+                    {caso.resumen}
+                  </p>
+                </div>
+              </Link>
+            )
+          })}
         </div>
       </section>
     </main>
