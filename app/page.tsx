@@ -6,7 +6,7 @@ import { getImagen } from "@/lib/imagenes"
 
 const WHATSAPP_URL = "https://wa.me/573142533524"
 const WHATSAPP_QUOTE_URL = `${WHATSAPP_URL}?text=${encodeURIComponent(
-  "Hola SoftCloud Studio, quiero cotizar una página web o una app."
+  "Hola SoftCloud Studio, quiero cotizar una página web, una app o un sistema a medida."
 )}`
 
 export default function Home() {
@@ -14,13 +14,18 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-white text-zinc-900">
-      {/* HERO */}
-      <section className="max-w-6xl mx-auto px-6 py-24 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
-          Webs que <span className="text-zinc-400">Google ama.</span><br/>
-          Apps que tus clientes usan.
+      <section className="mx-auto max-w-6xl px-6 py-24 text-center md:py-28">
+        <p className="text-sm font-medium uppercase tracking-[0.25em] text-indigo-600">
+          SoftCloud Studio
+        </p>
+        <h1 className="mt-6 text-5xl font-bold tracking-tight md:text-7xl">
+          Software que <span className="text-zinc-500">genera resultados.</span>
         </h1>
-        <div className="mt-8 flex gap-4 justify-center">
+        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 md:text-xl">
+          Diseñamos sitios web, apps y sistemas a medida para empresas que quieren vender más,
+          operar mejor y crecer con tecnología sólida.
+        </p>
+        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
             href="/trabajo"
             className={buttonVariants({
@@ -28,7 +33,7 @@ export default function Home() {
               className: "rounded-full px-8",
             })}
           >
-            Ver Portafolio
+            Ver proyectos
           </Link>
           <Link
             href={WHATSAPP_QUOTE_URL}
@@ -40,40 +45,66 @@ export default function Home() {
               className: "rounded-full px-8",
             })}
           >
-            Cotizar en WhatsApp
+            Hablemos por WhatsApp
           </Link>
         </div>
       </section>
 
-      {/* SERVICIOS */}
       <section id="servicios" className="bg-zinc-50 py-20">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-6">
-          <div className="bg-white p-8 rounded-2xl border">
-            <h3 className="font-bold text-xl">Web Next.js</h3>
-            <p className="text-zinc-600 mt-2">Aparece primero en Google. Carga en 0.8s.</p>
-            <p className="mt-4 font-bold">Desde $1.2M</p>
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="mb-10 max-w-2xl">
+            <p className="text-sm font-medium uppercase tracking-[0.24em] text-zinc-500">
+              Servicios
+            </p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-5xl">
+              Tecnología que acompaña el crecimiento de tu negocio.
+            </h2>
           </div>
-          <div className="bg-white p-8 rounded-2xl border">
-            <h3 className="font-bold text-xl">App Flutter</h3>
-            <p className="text-zinc-600 mt-2">Tu negocio en el celular de tu cliente.</p>
-            <p className="mt-4 font-bold">Desde $3.5M</p>
-          </div>
-          <div className="bg-black text-white p-8 rounded-2xl">
-            <h3 className="font-bold text-xl">Pack Total</h3>
-            <p className="text-zinc-400 mt-2">Web + App conectadas. La mejor oferta.</p>
-            <p className="mt-4 font-bold">Desde $4.5M</p>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="rounded-[28px] border border-zinc-200 bg-white p-8 shadow-sm">
+              <span className="inline-flex rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-indigo-700">
+                Web
+              </span>
+              <h3 className="mt-5 text-2xl font-bold tracking-tight">Sitios y tiendas que convierten</h3>
+              <p className="mt-3 text-zinc-600">
+                Estrategia, UX y desarrollo para que tu marca se vea fuerte y venda con claridad.
+              </p>
+              <p className="mt-6 text-lg font-semibold text-zinc-900">Desde $1.2M</p>
+            </div>
+
+            <div className="rounded-[28px] border border-zinc-200 bg-white p-8 shadow-sm">
+              <span className="inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-700">
+                App
+              </span>
+              <h3 className="mt-5 text-2xl font-bold tracking-tight">Apps que acompañan a tus clientes</h3>
+              <p className="mt-3 text-zinc-600">
+                Experiencias móviles pensadas para engagement, servicio y crecimiento operativo.
+              </p>
+              <p className="mt-6 text-lg font-semibold text-zinc-900">Desde $3.5M</p>
+            </div>
+
+            <div className="rounded-[28px] bg-zinc-950 p-8 text-white shadow-sm">
+              <span className="inline-flex rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-200">
+                Plataformas
+              </span>
+              <h3 className="mt-5 text-2xl font-bold tracking-tight">Sistemas y automatizaciones</h3>
+              <p className="mt-3 text-zinc-300">
+                Backoffice, dashboards, integraciones y automatizaciones que hacen más eficiente tu operación.
+              </p>
+              <p className="mt-6 text-lg font-semibold text-white">Desde $4.5M</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* PORTAFOLIO DESTACADO */}
       <section className="mx-auto max-w-6xl px-6 py-20">
-        <div className="flex items-end justify-between gap-4 flex-wrap">
+        <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-zinc-500">
               Portafolio
             </p>
-            <h2 className="mt-3 text-3xl md:text-5xl font-bold tracking-tight">
+            <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-5xl">
               Proyectos recientes
             </h2>
           </div>
@@ -127,9 +158,7 @@ export default function Home() {
                   <h3 className="mt-4 text-xl font-bold tracking-tight text-zinc-900 group-hover:text-indigo-600">
                     {caso.titulo}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-zinc-600">
-                    {caso.resumen}
-                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-zinc-600">{caso.resumen}</p>
                 </div>
               </Link>
             )
@@ -137,17 +166,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA FINAL */}
       <section className="bg-zinc-950 py-20 text-white">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <p className="text-sm font-medium uppercase tracking-[0.24em] text-zinc-400">
-            ¿Listo para convertir ideas en negocio?
+            ¿Listo para crecer?
           </p>
-          <h2 className="mt-6 text-3xl md:text-5xl font-bold tracking-tight">
-            Te ayudamos a lanzar una web, app o sistema que genere resultados.
+          <h2 className="mt-6 text-3xl font-bold tracking-tight md:text-5xl">
+            Te ayudamos a convertir una idea en una ventaja competitiva.
           </h2>
 
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href={WHATSAPP_QUOTE_URL}
               target="_blank"
