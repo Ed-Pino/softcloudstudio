@@ -17,7 +17,7 @@ const SERVICIOS = [
     titulo: "Software a la medida",
     texto:
       "Sistemas que se ajustan a cómo opera tu empresa, no al revés. Backend, panel de administración y APIs para dejar de sostener procesos en hojas de cálculo.",
-    capacidades: ["APIs RESTful y JWT", "PWA y paneles internos", "PostgreSQL", "Java 17 / Spring Boot 3", "Next.js / TypeScript"],
+    capacidades: ["APIs RESTful y JWT", "PWA y paneles internos", "PostgreSQL", "Java", "Spring Boot"],
     accent: "border-t-indigo-500",
     tag: "bg-indigo-50/80 text-indigo-700 border-indigo-200/60",
   },
