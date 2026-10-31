@@ -156,6 +156,45 @@ export default function Home() {
           })}
         </div>
       </section>
+
+      {/* CTA FINAL */}
+      <section className="bg-zinc-950 py-20 text-white">
+        <div className="mx-auto max-w-5xl px-6 text-center">
+          <p className="text-sm font-medium uppercase tracking-[0.24em] text-zinc-400">
+            ¿Listo para convertir ideas en negocio?
+          </p>
+          <h2 className="mt-6 text-3xl md:text-5xl font-bold tracking-tight">
+            Te ayudamos a lanzar una web, app o sistema que genere resultados.
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-base md:text-lg text-zinc-300">
+            Desde MVP hasta plataformas complejas con automatización, CRM, e-commerce y herramientas internas para operaciones más inteligentes.
+          </p>
+
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              href={WHATSAPP_QUOTE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={buttonVariants({
+                size: "lg",
+                className: "rounded-full px-8 bg-white text-zinc-950 hover:bg-zinc-200",
+              })}
+            >
+              Solicitar cotización
+            </Link>
+            <Link
+              href="/trabajo"
+              className={buttonVariants({
+                variant: "outline",
+                size: "lg",
+                className: "rounded-full px-8 border-white/30 text-white hover:bg-white/5",
+              })}
+            >
+              Ver más proyectos
+            </Link>
+          </div>
+        </div>
+      </section>
     </main>
   )
 }
