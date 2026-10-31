@@ -32,6 +32,15 @@ const SERVICIOS = [
   },
   {
     numero: "03",
+    titulo: "Web development",
+    texto:
+      "Diseñamos y construimos sitios web modernos, rápidos y enfocados en conversiones. Cada proyecto combina estrategia visual, experiencia de usuario y desarrollo listo para crecer.",
+    capacidades: ["Next.js", "TypeScript", "SEO técnico", "Diseño UX/UI", "Landing pages y sitios corporativos"],
+    accent: "border-t-cyan-500",
+    tag: "bg-cyan-50/80 text-cyan-700 border-cyan-200/60",
+  },
+  {
+    numero: "04",
     titulo: "Integraciones e IA",
     texto:
       "Automatizamos lo manual: mensajes, notificaciones, reportes. Conectamos tus herramientas y sumamos IA donde ahorra tiempo de verdad.",
@@ -40,7 +49,7 @@ const SERVICIOS = [
     tag: "bg-purple-50/80 text-purple-700 border-purple-200/60",
   },
   {
-    numero: "04",
+    numero: "05",
     titulo: "DevOps as a Service",
     texto:
       "NUEVO: De git push a producción sin miedo. Infra as Code, CI/CD, monitoreo y optimización de factura AWS.",
@@ -91,8 +100,8 @@ export default function ServiciosPage() {
 
       <section className="border-t border-zinc-200/80 bg-[#F8F8F7]">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-          <h2 className="font-serif text-3xl font-bold tracking-tight md:text-4xl">Cuatro formas en que podemos trabajar juntos</h2>
-          <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <h2 className="font-serif text-3xl font-bold tracking-tight md:text-4xl">Cinco formas en que podemos trabajar juntos</h2>
+          <div className="mt-14 grid gap-8 md:grid-cols-2 xl:grid-cols-5">
             {SERVICIOS.map((s) => (
               <div key={s.titulo} className={`flex flex-col rounded-[32px] border bg-white p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl ${s.accent} border-t-4`}>
                 <span className="font-mono text-sm font-bold text-indigo-600">{s.numero}</span>
@@ -149,7 +158,7 @@ export default function ServiciosPage() {
           </div>
           <div className="flex flex-col gap-4 md:items-start">
             <a href={CTA_HREF} target="_blank" className="rounded-full bg-white px-8 py-4 text-center font-semibold text-black hover:bg-zinc-200">Escribir por WhatsApp</a>
-            <a href={whatsappLink("Hola, quiero una auditoría DevOps gratis de mi infra")} target="_blank" className="text-sm font-semibold underline decoration-white/30 underline-offset-4 hover:text-indigo-300">Quiero auditoría DevOps gratis →</a>
+            <a href={whatsappLink("Hola, quiero una auditoría DevOps gratis de mi infra")} target="_blank" className="text-sm font-semibold underline decoration-white/30 underline-offset-4 hover:text-zinc-200">Auditoría DevOps gratis</a>
           </div>
         </div>
       </section>
