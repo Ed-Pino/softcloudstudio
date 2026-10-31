@@ -17,7 +17,7 @@ const SERVICIOS = [
     titulo: "Software a la medida",
     texto:
       "Sistemas que se ajustan a cómo opera tu empresa, no al revés. Backend, panel de administración y APIs para dejar de sostener procesos en hojas de cálculo.",
-    capacidades: ["APIs RESTful y JWT", "PWA y paneles internos", "PostgreSQL", "Java", "Spring Boot"],
+    capacidades: ["APIs RESTful y JWT", "PWA y paneles internos", "PostgreSQL", "Java", "Spring"],
     accent: "border-t-indigo-500",
     tag: "bg-indigo-50/80 text-indigo-700 border-indigo-200/60",
   },
@@ -86,7 +86,7 @@ export default function ServiciosPage() {
         </h1>
         <p className="mt-8 max-w-2xl text-lg leading-relaxed text-zinc-600">
           Estudio full-stack + DevOps: construimos software a la medida, e-commerce e integraciones.
-          Backend Java/Spring Boot, frontend Next.js y <strong>DevOps que escala de MVP a millones.</strong>
+          Backend Java y Spring, frontend Next.js y <strong>DevOps que escala de MVP a millones.</strong>
         </p>
         <div className="mt-10 flex flex-wrap gap-3">
           <a href={CTA_HREF} target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "whatsapp", size: "lg", className: "rounded-full px-7 shadow-md" })}>
@@ -158,7 +158,7 @@ export default function ServiciosPage() {
           </div>
           <div className="flex flex-col gap-4 md:items-start">
             <a href={CTA_HREF} target="_blank" className="rounded-full bg-white px-8 py-4 text-center font-semibold text-black hover:bg-zinc-200">Escribir por WhatsApp</a>
-            <a href={whatsappLink("Hola, quiero una auditoría DevOps gratis de mi infra")} target="_blank" className="text-sm font-semibold underline decoration-white/30 underline-offset-4 hover:text-zinc-200">Auditoría DevOps gratis</a>
+            <a href={whatsappLink("Hola, quiero una auditoría DevOps gratis de mi infra")} target="_blank" className="text-sm font-semibold underline decoration-white/30 underline-offset-4 hover:text-white">Solicitar auditoría gratis</a>
           </div>
         </div>
       </section>
