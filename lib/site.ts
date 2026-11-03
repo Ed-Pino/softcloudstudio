@@ -12,15 +12,17 @@ export const CTA_HREF = `${WHATSAPP_URL}?text=${encodeURIComponent(
 )}`
 
 export const NAV = [
-  { href: "/", label: "Inicio" },
-  { href: "/trabajo", label: "Trabajo" },
-  { href: "/servicios/aws-cost-optimization", label: "AWS -30%" },
-  { href: "/servicios", label: "Servicios" },
-  { href: "/contacto", label: "Contacto" },
-]
+  { href: "/", label: "home" },
+  { href: "/trabajo", label: "work" },
+  { href: "/servicios/aws-cost-optimization", label: "aws" },
+  { href: "/servicios", label: "services" },
+  { href: "/nosotros", label: "about" },
+  { href: "/contacto", label: "contact" },
+] as const
 
 export const STACK = [
   "Java",
+  "Python",
   "Spring",
   "JPA",
   "TypeScript",

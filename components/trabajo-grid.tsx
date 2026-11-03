@@ -2,13 +2,18 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import Link from "next/link"
+import { useLocale, useTranslations } from "next-intl"
+import { Link } from "@/i18n/navigation"
 import { CATEGORIAS, getCategoriaStyle, type Caso } from "@/lib/casos"
 import { getImagen } from "@/lib/imagenes"
+import { getLocalizedCaso, getLocalizedCategory } from "@/lib/casos-translations"
+import type { Locale } from "@/i18n/routing"
 
 const TODOS = "Todos" as const
 
 export function TrabajoGrid({ casos }: { casos: Caso[] }) {
+  const locale = useLocale() as Locale
+  const t = useTranslations("work")
   const [filtro, setFiltro] = useState<(typeof CATEGORIAS)[number] | typeof TODOS>(
     TODOS
   )
@@ -48,7 +53,7 @@ export function TrabajoGrid({ casos }: { casos: Caso[] }) {
                     }`}
                   />
                 ) : null}
-                {opcion}
+                {opcion === TODOS ? t("filters.all") : t(`filters.${opcion}`)}
               </span>
               <span
                 className={`ml-2 text-xs ${
@@ -63,19 +68,23 @@ export function TrabajoGrid({ casos }: { casos: Caso[] }) {
       </div>
 
       <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {visibles.map((caso) => {
+        {visibles.map((original) => {
+          const caso = getLocalizedCaso(original, locale)
           const catStyle = getCategoriaStyle(caso.categoria)
           return (
             <Link
               key={caso.slug}
-              href={`/trabajo/${caso.slug}`}
+              href={{
+                pathname: "/trabajo/[slug]",
+                params: { slug: caso.slug },
+              }}
               className="group flex flex-col overflow-hidden rounded-2xl border border-zinc-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-500/5"
             >
               <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-100">
                 {getImagen(caso.slug) ? (
                   <Image
                     src={getImagen(caso.slug)!}
-                    alt={`Captura de ${caso.titulo}`}
+                    alt={t("capture", { title: caso.titulo })}
                     fill
                     sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                     className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
@@ -83,7 +92,7 @@ export function TrabajoGrid({ casos }: { casos: Caso[] }) {
                 ) : (
                   <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-zinc-100">
                     <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-zinc-400">
-                      {caso.categoria}
+                      {getLocalizedCategory(caso.categoria, locale)}
                     </span>
                   </div>
                 )}
@@ -98,11 +107,11 @@ export function TrabajoGrid({ casos }: { casos: Caso[] }) {
                       <span
                         className={`h-1.5 w-1.5 rounded-full ${catStyle.dot}`}
                       />
-                      {caso.categoria}
+                      {getLocalizedCategory(caso.categoria, locale)}
                     </span>
                     {caso.destacado ? (
                       <span className="rounded-full border border-amber-200/80 bg-amber-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-700">
-                        Destacado
+                        {t("featured")}
                       </span>
                     ) : null}
                   </div>
@@ -127,7 +136,7 @@ export function TrabajoGrid({ casos }: { casos: Caso[] }) {
                   {caso.demo ? (
                     <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200/80 bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700">
                       <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
-                      Demo en vivo
+                      {t("liveDemo")}
                     </span>
                   ) : null}
                 </div>

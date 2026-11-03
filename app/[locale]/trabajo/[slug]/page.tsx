@@ -1,10 +1,14 @@
 import type { Metadata } from "next"
-import Link from "next/link"
+import { getTranslations } from "next-intl/server"
+import { Link } from "@/i18n/navigation"
+import { getPathname } from "@/i18n/navigation"
 import { notFound } from "next/navigation"
 import { buttonVariants } from "@/components/ui/button"
 import { casos, getCaso, getCategoriaStyle } from "@/lib/casos"
+import { getLocalizedCaso, getLocalizedCategory } from "@/lib/casos-translations"
 import { jsonLdScript, migasDePan } from "@/lib/schema"
 import { SITE_URL, whatsappLink } from "@/lib/site"
+import type { Locale } from "@/i18n/routing"
 
 export function generateStaticParams() {
   return casos.map((caso) => ({ slug: caso.slug }))
@@ -13,22 +17,34 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ locale: string; slug: string }>
 }): Promise<Metadata> {
-  const { slug } = await params
+  const { locale, slug } = await params
   const caso = getCaso(slug)
 
   if (!caso) {
     return { title: "Proyecto no encontrado" }
   }
 
+  const localized = getLocalizedCaso(caso, locale as Locale)
+  const pathname = {
+    pathname: "/trabajo/[slug]" as const,
+    params: { slug: caso.slug },
+  }
+
   return {
-    title: caso.titulo,
-    description: caso.resumen,
-    alternates: { canonical: `/trabajo/${caso.slug}` },
+    title: localized.titulo,
+    description: localized.resumen,
+    alternates: {
+      canonical: getPathname({ locale: locale as Locale, href: pathname }),
+      languages: {
+        es: `${SITE_URL}${getPathname({ locale: "es", href: pathname })}`,
+        en: `${SITE_URL}${getPathname({ locale: "en", href: pathname })}`,
+      },
+    },
     openGraph: {
-      title: `${caso.titulo} — ${caso.categoria}`,
-      description: caso.resumen,
+      title: `${localized.titulo} — ${localized.categoria}`,
+      description: localized.resumen,
       type: "article",
     },
   }
@@ -37,17 +53,33 @@ export async function generateMetadata({
 export default async function CasoPage({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ locale: string; slug: string }>
 }) {
-  const { slug } = await params
-  const caso = getCaso(slug)
+  const { locale: localeParam, slug } = await params
+  const original = getCaso(slug)
 
-  if (!caso) {
+  if (!original) {
     notFound()
   }
 
+  const locale = localeParam as Locale
+  const t = await getTranslations({ locale, namespace: "case" })
+  const caso = getLocalizedCaso(original, locale)
+
   const catStyle = getCategoriaStyle(caso.categoria)
-  const otros = casos.filter((item) => item.slug !== caso.slug).slice(0, 3)
+  const otros = casos
+    .filter((item) => item.slug !== caso.slug)
+    .slice(0, 3)
+    .map((item) => getLocalizedCaso(item, locale))
+  const homePath = getPathname({ locale, href: "/" })
+  const workPath = getPathname({ locale, href: "/trabajo" })
+  const casePath = getPathname({
+    locale,
+    href: {
+      pathname: "/trabajo/[slug]",
+      params: { slug: caso.slug },
+    },
+  })
 
   return (
     <main className="relative flex-1">
@@ -56,11 +88,11 @@ export default async function CasoPage({
         dangerouslySetInnerHTML={{
           __html: jsonLdScript(
             migasDePan([
-              { nombre: "Inicio", url: SITE_URL },
-              { nombre: "Trabajo", url: `${SITE_URL}/trabajo` },
+              { nombre: locale === "en" ? "Home" : "Inicio", url: `${SITE_URL}${homePath}` },
+              { nombre: locale === "en" ? "Work" : "Trabajo", url: `${SITE_URL}${workPath}` },
               {
                 nombre: caso.titulo,
-                url: `${SITE_URL}/trabajo/${caso.slug}`,
+                url: `${SITE_URL}${casePath}`,
               },
             ])
           ),
@@ -74,7 +106,7 @@ export default async function CasoPage({
           href="/trabajo"
           className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-500 transition-colors hover:text-indigo-600"
         >
-          ← Volver a todo el trabajo
+          {locale === "en" ? t("back") : "← Volver a todo el trabajo"}
         </Link>
 
         <div className="mt-8 flex items-center gap-3">
@@ -82,11 +114,11 @@ export default async function CasoPage({
             className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold ${catStyle.badge}`}
           >
             <span className={`h-1.5 w-1.5 rounded-full ${catStyle.dot}`} />
-            {caso.categoria}
+            {getLocalizedCategory(caso.categoria, locale)}
           </span>
           {caso.destacado ? (
             <span className="rounded-full border border-amber-200/80 bg-amber-50 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider text-amber-700">
-              Proyecto Destacado
+              {locale === "en" ? t("featured") : "Proyecto destacado"}
             </span>
           ) : null}
         </div>
@@ -109,7 +141,7 @@ export default async function CasoPage({
               className: "rounded-full px-7 shadow-md shadow-indigo-600/20",
             })}
           >
-            Ver repositorio en GitHub
+            {locale === "en" ? t("repository") : "Ver repositorio en GitHub"}
           </a>
           {caso.demo ? (
             <a
@@ -122,7 +154,7 @@ export default async function CasoPage({
                 className: "rounded-full px-7 shadow-md shadow-emerald-600/20",
               })}
             >
-              Abrir demo en vivo ↗
+              {t("liveDemo")}
             </a>
           ) : null}
         </div>
@@ -132,39 +164,41 @@ export default async function CasoPage({
         <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-[2fr_1fr] md:py-20">
           <div>
             <h2 className="text-2xl font-bold tracking-tight text-zinc-900">
-              Sobre el proyecto
+              {locale === "en" ? t("about") : "Sobre el proyecto"}
             </h2>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-zinc-600">
               {caso.descripcion}
             </p>
 
             <h2 className="mt-14 text-2xl font-bold tracking-tight text-zinc-900">
-              Transparencia
+              {locale === "en" ? t("transparency") : "Transparencia"}
             </h2>
             <p className="mt-5 max-w-2xl text-sm leading-relaxed text-zinc-600">
               {caso.transparencia ??
-                "Este es un proyecto propio de desarrollo, no un trabajo de cliente. Lo publicamos con su código porque preferimos mostrar cómo trabajamos antes que logos que no nos corresponden. Los proyectos de cliente se publican únicamente con autorización expresa."}
+                (locale === "en"
+                  ? t("defaultTransparency")
+                  : "Este es un proyecto propio de desarrollo, no un trabajo de cliente. Lo publicamos con su código porque preferimos mostrar cómo trabajamos antes que logos que no nos corresponden. Los proyectos de cliente se publican únicamente con autorización expresa.")}
             </p>
           </div>
 
           <aside className="h-fit rounded-2xl border border-zinc-200/80 bg-white p-8 shadow-sm">
             <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-600">
-              Ficha Técnica
+              {locale === "en" ? t("technical") : "Ficha técnica"}
             </h2>
             <dl className="mt-6 flex flex-col gap-5 text-sm">
               <div>
-                <dt className="text-zinc-500">Categoría</dt>
+                <dt className="text-zinc-500">{t("category")}</dt>
                 <dd className="mt-1.5 font-semibold text-zinc-800">
                   <span
                     className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-medium ${catStyle.badge}`}
                   >
                     <span className={`h-1.5 w-1.5 rounded-full ${catStyle.dot}`} />
-                    {caso.categoria}
+                    {getLocalizedCategory(caso.categoria, locale)}
                   </span>
                 </dd>
               </div>
               <div>
-                <dt className="text-zinc-500">Stack Tecnológico</dt>
+                <dt className="text-zinc-500">{t("stack")}</dt>
                 <dd className="mt-2 flex flex-wrap gap-1.5">
                   {caso.stack.map((tech) => (
                     <span
@@ -177,7 +211,7 @@ export default async function CasoPage({
                 </dd>
               </div>
               <div>
-                <dt className="text-zinc-500">Repositorio</dt>
+                <dt className="text-zinc-500">{t("repo")}</dt>
                 <dd className="mt-1">
                   <a
                     href={caso.repo}
@@ -185,13 +219,13 @@ export default async function CasoPage({
                     rel="noopener noreferrer"
                     className="font-medium text-indigo-600 underline decoration-indigo-300 underline-offset-4 hover:text-indigo-800 hover:decoration-indigo-600"
                   >
-                    Código en GitHub ↗
+                    {t("viewCode")}
                   </a>
                 </dd>
               </div>
               {caso.demo ? (
                 <div>
-                  <dt className="text-zinc-500">Demo pública</dt>
+                  <dt className="text-zinc-500">{t("publicDemo")}</dt>
                   <dd className="mt-1">
                     <a
                       href={caso.demo}
@@ -199,7 +233,7 @@ export default async function CasoPage({
                       rel="noopener noreferrer"
                       className="font-medium text-emerald-600 underline decoration-emerald-300 underline-offset-4 hover:text-emerald-800 hover:decoration-emerald-600"
                     >
-                      Ver funcionando ↗
+                      {t("viewLive")}
                     </a>
                   </dd>
                 </div>
@@ -212,15 +246,14 @@ export default async function CasoPage({
       <section className="border-t border-indigo-100/80 bg-gradient-to-b from-white via-indigo-50/20 to-zinc-50">
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
           <h2 className="text-2xl font-bold tracking-tight text-zinc-900">
-            ¿Tienes algo parecido en mente?
+            {t("similar")}
           </h2>
           <p className="mt-4 max-w-2xl leading-relaxed text-zinc-600">
-            Cuéntanos qué necesitas y te decimos con franqueza si podemos
-            ayudarte, en cuánto tiempo y con qué alcance.
+            {t("cta")}
           </p>
           <a
             href={whatsappLink(
-              `Hola SoftCloud Studio, vi el proyecto ${caso.titulo} y quiero algo parecido.`
+              t("similarMessage", { project: caso.titulo })
             )}
             target="_blank"
             rel="noopener noreferrer"
@@ -230,21 +263,26 @@ export default async function CasoPage({
               className: "mt-8 rounded-full px-7 shadow-md shadow-emerald-600/20",
             })}
           >
-            Escribir por WhatsApp
+            {t("whatsapp")}
           </a>
         </div>
       </section>
 
       <section className="border-t border-zinc-200/80 bg-zinc-50/60">
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
-          <h2 className="text-2xl font-bold tracking-tight text-zinc-900">Otros proyectos</h2>
+          <h2 className="text-2xl font-bold tracking-tight text-zinc-900">
+            {t("otherProjects")}
+          </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {otros.map((item) => {
               const itemStyle = getCategoriaStyle(item.categoria)
               return (
                 <Link
                   key={item.slug}
-                  href={`/trabajo/${item.slug}`}
+                  href={{
+                    pathname: "/trabajo/[slug]",
+                    params: { slug: item.slug },
+                  }}
                   className="group flex flex-col justify-between rounded-2xl border border-zinc-200/80 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-500/5"
                 >
                   <div>
@@ -252,7 +290,7 @@ export default async function CasoPage({
                       className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-medium ${itemStyle.badge}`}
                     >
                       <span className={`h-1.5 w-1.5 rounded-full ${itemStyle.dot}`} />
-                      {item.categoria}
+                      {getLocalizedCategory(item.categoria, locale)}
                     </span>
                     <h3 className="mt-4 text-lg font-bold tracking-tight text-zinc-900 transition-colors group-hover:text-indigo-600">
                       {item.titulo}

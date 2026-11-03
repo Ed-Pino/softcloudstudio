@@ -1,19 +1,41 @@
 import type { Metadata } from "next"
+import { setRequestLocale } from "next-intl/server"
+import { getPathname } from "@/i18n/navigation"
+import type { Locale } from "@/i18n/routing"
 import { buttonVariants } from "@/components/ui/button"
 import {
-  CTA_HREF,
   GITHUB_URL,
   LOCATION,
   SITE_NAME,
   STACK,
   whatsappLink,
 } from "@/lib/site"
+import { SITE_URL } from "@/lib/site"
 
-export const metadata: Metadata = {
-  title: "Estudio de desarrollo de software en Bogotá",
-  description:
-    "Estudio de desarrollo en Bogotá: perfil, proceso de trabajo y stack con el que construimos software a la medida, e-commerce e integraciones. Java, Spring Boot, Next.js y AWS.",
-  alternates: { canonical: "/nosotros" },
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const canonical = getPathname({ locale: locale as Locale, href: "/nosotros" })
+  return {
+    title:
+      locale === "en"
+        ? "About SoftCloud Studio | Software Development in Bogotá"
+        : "Sobre SoftCloud Studio | Desarrollo de software en Bogotá",
+    description:
+      locale === "en"
+        ? "Meet the team, process, and technology behind our custom software, e-commerce, and integrations."
+        : "Conoce el equipo, proceso y tecnologías con las que construimos software a la medida, e-commerce e integraciones.",
+    alternates: {
+      canonical,
+      languages: {
+        es: `${SITE_URL}${getPathname({ locale: "es", href: "/nosotros" })}`,
+        en: `${SITE_URL}${getPathname({ locale: "en", href: "/nosotros" })}`,
+      },
+    },
+  }
 }
 
 const PERFIL = [
@@ -52,7 +74,33 @@ const PROCESO = [
   },
 ]
 
-export default function NosotrosPage() {
+const EN_PERFIL = [
+  "Backend engineering with Java, Spring, and Spring Data JPA: REST APIs, PostgreSQL persistence, secure JWT authentication, and role management.",
+  "Modern frontend development with React, TypeScript, and Next.js, including clean interfaces and user-focused Progressive Web Apps.",
+  "E-commerce and finance platforms: transactional catalogs, credit operations, work orders, and field operations management.",
+  "API and AI integrations: OpenAI automation, WhatsApp Business, and email to reduce manual work.",
+  "Media processing and video tools: format conversion, trimming, and content optimization.",
+  "Cloud deployment and architecture on AWS and Oracle Cloud.",
+]
+
+const EN_PROCESO = [
+  { paso: "01", titulo: "Discovery", texto: "We discuss the real problem, the business, and what already exists. That becomes an honest scope, not an inflated sales pitch." },
+  { paso: "02", titulo: "Fixed proposal", texto: "Deliverables, timeline, and price in writing: 50% to start and 50% on delivery. No open-ended hourly billing." },
+  { paso: "03", titulo: "Weekly delivery", texto: "Every week you see working progress in a test environment. We refine what you can see, not a status summary." },
+  { paso: "04", titulo: "Delivery and support", texto: "The code stays in your repositories, with 30 days of included launch support." },
+]
+
+export default async function NosotrosPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  setRequestLocale(locale)
+  const english = locale === "en"
+  const perfil = english ? EN_PERFIL : PERFIL
+  const proceso = english ? EN_PROCESO : PROCESO
+
   return (
     <main className="relative flex-1">
       {/* AMBIENT GLOW */}
@@ -62,19 +110,20 @@ export default function NosotrosPage() {
       <section className="mx-auto max-w-6xl px-6 pt-20 pb-16 md:pt-28 md:pb-24">
         <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200/80 bg-indigo-50/70 px-3.5 py-1 text-xs font-medium text-indigo-900 shadow-xs">
           <span className="h-2 w-2 rounded-full bg-indigo-600" />
-          <span>Estudio de desarrollo — {LOCATION}</span>
+          <span>
+            {english ? `Software studio — ${LOCATION}` : `Estudio de desarrollo — ${LOCATION}`}
+          </span>
         </div>
         <h1 className="mt-8 max-w-4xl text-4xl font-bold leading-[1.08] tracking-tight md:text-6xl">
-          Sobre{" "}
+          {english ? "About" : "Sobre"}{" "}
           <span className="bg-gradient-to-r from-indigo-600 via-blue-600 to-indigo-700 bg-clip-text text-transparent">
             SoftCloud Studio
           </span>
         </h1>
         <p className="mt-8 max-w-2xl text-lg leading-relaxed text-zinc-600">
-          {SITE_NAME} es un estudio de desarrollo en Bogotá. Somos pocos, sin
-          intermediarios y sin capas de cuenta: quien propone el alcance es quien
-          escribe el código, y eso se nota en los tiempos y en las decisiones
-          técnicas.
+          {english
+            ? `${SITE_NAME} is a software studio in Bogotá. We are a small team without account layers or middlemen: the person who scopes the work is the person who writes the code, which shows in our timelines and technical decisions.`
+            : `${SITE_NAME} es un estudio de desarrollo en Bogotá. Somos pocos, sin intermediarios y sin capas de cuenta: quien propone el alcance es quien escribe el código, y eso se nota en los tiempos y en las decisiones técnicas.`}
         </p>
       </section>
 
@@ -82,22 +131,25 @@ export default function NosotrosPage() {
       <section className="border-t border-zinc-200/80 bg-zinc-50/60">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-600">
-            Equipo &amp; Experiencia
+            {english ? "Team & Experience" : "Equipo & Experiencia"}
           </p>
           <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
-            Quién está detrás
+            {english ? "Who is behind the work" : "Quién está detrás"}
           </h2>
           <div className="mt-14 grid gap-10 md:grid-cols-2">
             <div>
               <h3 className="text-xl font-bold tracking-tight text-zinc-900">
-                Ed Pino — desarrollador full-stack
+                {english ? "Ed Pino — full-stack developer" : "Ed Pino — desarrollador full-stack"}
               </h3>
               <p className="mt-4 leading-relaxed text-zinc-600">
-                Desarrollador full-stack en Bogotá especializado en el ecosistema Java (Java 17, Spring Boot 3, Spring Data JPA) y frontend moderno con React y TypeScript. Con experiencia en plataformas de gestión operativa (PWA), e-commerce, procesamiento multimedia e integraciones avanzadas con OpenAI y WhatsApp.
+                {english
+                  ? "Full-stack developer in Bogotá focused on Java, Spring, and Spring Data JPA, with a modern React and TypeScript frontend. Experienced in operations platforms, PWAs, e-commerce, media processing, and OpenAI and WhatsApp integrations."
+                  : "Desarrollador full-stack en Bogotá especializado en el ecosistema Java, Spring y Spring Data JPA y frontend moderno con React y TypeScript. Con experiencia en plataformas de gestión operativa (PWA), e-commerce, procesamiento multimedia e integraciones avanzadas con OpenAI y WhatsApp."}
               </p>
               <p className="mt-4 leading-relaxed text-zinc-600">
-                El código de este sitio y de los proyectos listados está público
-                en{" "}
+                {english
+                  ? "The code for this site and the listed projects is public on "
+                  : "El código de este sitio y de los proyectos listados está público en "}
                 <a
                   href={GITHUB_URL}
                   target="_blank"
@@ -106,12 +158,13 @@ export default function NosotrosPage() {
                 >
                   GitHub
                 </a>
-                . Es la forma más rápida de saber cómo trabajamos antes de
-                contratarnos.
+                {english
+                  ? ". It's the quickest way to see how we work before hiring us."
+                  : ". Es la forma más rápida de saber cómo trabajamos antes de contratarnos."}
               </p>
             </div>
             <ul className="grid content-start gap-4">
-              {PERFIL.map((linea) => (
+              {perfil.map((linea) => (
                 <li
                   key={linea}
                   className="rounded-2xl border border-zinc-200/80 bg-white p-6 text-sm leading-relaxed text-zinc-600 shadow-xs transition-all hover:border-indigo-200 hover:shadow-md hover:shadow-indigo-500/5"
@@ -131,30 +184,26 @@ export default function NosotrosPage() {
       <section className="border-t border-zinc-200/80 bg-white">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-600">
-            Transparencia
+            {english ? "Transparency" : "Transparencia"}
           </p>
           <h2 className="mt-2 max-w-3xl text-3xl font-bold tracking-tight md:text-4xl">
-            Por qué no verás logos de clientes aquí
+            {english ? "Why you won't see client logos here" : "Por qué no verás logos de clientes aquí"}
           </h2>
           <div className="mt-8 max-w-2xl space-y-4">
             <p className="leading-relaxed text-zinc-600">
-              Porque no los tenemos. El portafolio de este sitio son proyectos
-              propios: software que construimos, publicamos y mantenemos
-              nosotros, con su código abierto y su repositorio enlazado. Son
-              trabajos reales y verificables, simplemente no son encargos de
-              cliente.
+              {english
+                ? "Because we don't have any to claim. This portfolio contains our own projects: software we build, publish, and maintain, with open code and linked repositories. They are real, verifiable projects, just not client commissions."
+                : "Porque no los tenemos. El portafolio de este sitio son proyectos propios: software que construimos, publicamos y mantenemos nosotros, con su código abierto y su repositorio enlazado. Son trabajos reales y verificables, simplemente no son encargos de cliente."}
             </p>
             <p className="leading-relaxed text-zinc-600">
-              Preferimos mostrar código que puedas leer antes que una fila de
-              logos que no nos corresponden. Un logo en una página de inicio no
-              dice nada sobre cómo se escribió ese software, quién lo mantiene ni
-              qué pasó cuando algo se rompió.
+              {english
+                ? "We'd rather show code you can read than a row of logos that aren't ours. A homepage logo says nothing about how software was built, who maintains it, or what happens when something breaks."
+                : "Preferimos mostrar código que puedas leer antes que una fila de logos que no nos corresponden. Un logo en una página de inicio no dice nada sobre cómo se escribió ese software, quién lo mantiene ni qué pasó cuando algo se rompió."}
             </p>
             <p className="leading-relaxed text-zinc-600">
-              Cuando un proyecto de cliente tenga permiso para publicarse,
-              aparecerá aquí con su nombre, su contexto y las decisiones técnicas
-              detrás. Hasta entonces, este portafolio es exactamente lo que
-              parece: nuestro propio trabajo.
+              {english
+                ? "When a client project has permission to be published, we'll share its name, context, and the technical decisions behind it. Until then, this portfolio is exactly what it looks like: our own work."
+                : "Cuando un proyecto de cliente tenga permiso para publicarse, aparecerá aquí con su nombre, su contexto y las decisiones técnicas detrás. Hasta entonces, este portafolio es exactamente lo que parece: nuestro propio trabajo."}
             </p>
           </div>
         </div>
@@ -164,13 +213,13 @@ export default function NosotrosPage() {
       <section className="border-t border-zinc-200/80 bg-zinc-50/50">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-600">
-            Metodología
+            {english ? "Method" : "Metodología"}
           </p>
           <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
-            Proceso
+            {english ? "Process" : "Proceso"}
           </h2>
           <div className="mt-14 grid gap-8 md:grid-cols-4">
-            {PROCESO.map((etapa) => (
+            {proceso.map((etapa) => (
               <div
                 key={etapa.paso}
                 className="rounded-2xl border border-zinc-200/70 bg-white p-6 shadow-xs transition-all hover:border-indigo-200"
@@ -192,14 +241,15 @@ export default function NosotrosPage() {
       <section className="border-t border-zinc-200/80 bg-white">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-600">
-            Ecosistema
+            {english ? "Technology" : "Ecosistema"}
           </p>
           <h2 className="mt-2 text-3xl font-bold tracking-tight md:text-4xl">
             Stack
           </h2>
           <p className="mt-6 max-w-2xl leading-relaxed text-zinc-600">
-            Herramientas maduras y de código abierto, elegidas por lo que el
-            proyecto necesita. Nada exótico que después nadie pueda mantener.
+            {english
+              ? "Mature, open-source tools selected for what each project needs. Nothing exotic that no one can maintain later."
+              : "Herramientas maduras y de código abierto, elegidas por lo que el proyecto necesita. Nada exótico que después nadie pueda mantener."}
           </p>
           <ul className="mt-10 flex flex-wrap gap-2.5">
             {STACK.map((tecnologia) => (
@@ -219,18 +269,19 @@ export default function NosotrosPage() {
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-1 text-xs font-medium text-emerald-800">
             <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
-            Sin intermediarios
+            {english ? "No middlemen" : "Sin intermediarios"}
           </div>
           <h2 className="mt-6 max-w-3xl text-3xl font-bold leading-tight tracking-tight md:text-5xl">
-            Si tu proyecto encaja con lo que hacemos, hablemos.
+            {english ? "If your project fits what we do, let's talk." : "Si tu proyecto encaja con lo que hacemos, hablemos."}
           </h2>
           <p className="mt-6 max-w-2xl leading-relaxed text-zinc-600">
-            Cuéntanos qué necesitas y te respondemos el mismo día hábil con una
-            idea clara de alcance, fecha y precio.
+            {english
+              ? "Tell us what you need and we'll reply within one business day with a clear scope, timeline, and price."
+              : "Cuéntanos qué necesitas y te respondemos el mismo día hábil con una idea clara de alcance, fecha y precio."}
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-6">
             <a
-              href={CTA_HREF}
+              href={whatsappLink(english ? "Hi, I'd like to discuss a software project." : "Hola SoftCloud Studio, quiero hablar de un proyecto de software.")}
               target="_blank"
               rel="noopener noreferrer"
               className={buttonVariants({
@@ -239,17 +290,19 @@ export default function NosotrosPage() {
                 className: "rounded-full px-8 shadow-lg shadow-emerald-600/25",
               })}
             >
-              Escribir por WhatsApp
+              {english ? "Message us on WhatsApp" : "Escribir por WhatsApp"}
             </a>
             <a
               href={whatsappLink(
-                "Hola SoftCloud Studio, quiero contarles sobre un proyecto."
+                english
+                  ? "Hi SoftCloud Studio, I'd like to tell you about a project."
+                  : "Hola SoftCloud Studio, quiero contarles sobre un proyecto."
               )}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm font-semibold text-zinc-700 underline decoration-zinc-300 underline-offset-4 transition-colors hover:text-indigo-600 hover:decoration-indigo-400"
             >
-              Contarles mi caso →
+              {english ? "Tell us about it →" : "Contarles mi caso →"}
             </a>
           </div>
         </div>

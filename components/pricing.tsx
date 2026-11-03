@@ -1,107 +1,116 @@
 import { buttonVariants } from "@/components/ui/button"
+import { useLocale, useTranslations } from "next-intl"
 import { whatsappLink } from "@/lib/site"
 
-const PLANES = [
+const PLANS = [
   {
-    nombre: "LAUNCH",
-    precio: "1,850",
-    periodo: "/mes",
-    para: "Para lanzar tu producto o tu web sin frenar al equipo.",
-    features: [
-      "Lanzamiento de marca y web + CI/CD básico",
-      "Hasta 5 páginas o 1 MVP de app",
-      "SEO, analítica y despliegue en Vercel",
-      "30 días de soporte post-lanzamiento",
-    ],
-    cta: "Empezar",
-    destacado: false,
+    name: "LAUNCH",
+    key: "launch",
+    amount: 1850,
+    featuresKey: "launchFeatures",
+    ctaKey: "start",
+    featured: false,
   },
   {
-    nombre: "SCALE",
-    precio: "3,500",
-    periodo: "/mes",
-    para: "Para equipos que están escalando infraestructura.",
-    features: [
-      "Multi-entorno con Terraform (Infra as Code)",
-      "CI/CD y monitoreo 24/7 con alertas",
-      "Optimización de costo AWS: -30% garantizado",
-      "DevOps dedicado a tu equipo",
-      "SLA de respuesta en 48 horas",
-    ],
-    cta: "Escalar con SoftCloud",
-    destacado: true,
+    name: "SCALE",
+    key: "scale",
+    amount: 3500,
+    featuresKey: "scaleFeatures",
+    ctaKey: "scaleCta",
+    featured: true,
   },
   {
-    nombre: "DEVOPS RESCUE",
-    precio: "1,200",
-    periodo: "pago único",
-    para: "Para factura AWS alta o deploy roto.",
-    features: [
-      "Auditoría de emergencia y remediación",
-      "Respuesta a incidentes",
-      "Endurecimiento de infraestructura y backups",
-      "Si no bajo el costo, no cobro",
-    ],
-    cta: "Pedir rescate",
-    destacado: false,
+    name: "DEVOPS RESCUE",
+    key: "rescue",
+    amount: 1200,
+    featuresKey: "rescueFeatures",
+    ctaKey: "rescueCta",
+    featured: false,
   },
-]
+] as const
 
 export function Pricing() {
+  const t = useTranslations("pricing")
+  const locale = useLocale()
+  const copPerUsd = Number(process.env.COP_PER_USD_RATE)
+  const hasCopRate = Number.isFinite(copPerUsd) && copPerUsd > 0
+
+  const formatPrice = (usdAmount: number) => {
+    if (locale === "es") {
+      if (!hasCopRate) return t("quoteInCop")
+      return new Intl.NumberFormat("es-CO", {
+        style: "currency",
+        currency: "COP",
+        maximumFractionDigits: 0,
+      }).format(usdAmount * copPerUsd)
+    }
+
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0,
+    }).format(usdAmount)
+  }
+
+  const getFeatures = (key: string) => {
+    const features = t.raw(`plans.${key}`)
+    if (!Array.isArray(features) || !features.every((item) => typeof item === "string")) {
+      throw new Error(`Invalid pricing features message: plans.${key}`)
+    }
+    return features
+  }
+
   return (
     <section className="border-t border-zinc-200/80 bg-white">
       <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-600">
-          Planes mensuales
+          {t("eyebrow")}
         </p>
         <h2 className="mt-2 font-serif text-3xl font-bold tracking-tight md:text-4xl">
-          Precios claros, sin llamada previa
+          {t("title")}
         </h2>
         <p className="mt-6 max-w-2xl leading-relaxed text-zinc-600">
-          Si tu caso encaja en uno de estos tres planes, no necesitas agendar
-          nada: escríbenos por WhatsApp y arrancamos. Precios en dólares
-          (USD), facturación mensual y sin contrato de permanencia.
+          {t("description")}
         </p>
 
         <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {PLANES.map((plan) => (
+          {PLANS.map((plan) => (
             <div
-              key={plan.nombre}
+              key={plan.name}
               className={
-                plan.destacado
+                plan.featured
                   ? "flex flex-col rounded-[32px] border border-indigo-300 bg-white p-8 shadow-xl shadow-indigo-500/10 ring-2 ring-indigo-200"
                   : "flex flex-col rounded-[32px] border border-zinc-200/80 bg-zinc-50/60 p-8 shadow-sm"
               }
             >
               <div className="flex items-center justify-between gap-3">
                 <span className="rounded-full border border-zinc-200 bg-white px-3.5 py-1 font-mono text-xs font-bold tracking-widest text-zinc-700">
-                  {plan.nombre}
+                  {plan.name}
                 </span>
-                {plan.destacado ? (
+                {plan.featured ? (
                   <span className="rounded-full bg-indigo-600 px-3 py-1 text-[11px] font-semibold tracking-widest text-white">
-                    MÁS ELEGIDO
+                    {t("featured")}
                   </span>
                 ) : null}
               </div>
 
-              <div className="mt-8 flex items-baseline">
-                <span className="text-lg font-semibold text-zinc-500">USD</span>
-                <span className="ml-2 font-serif text-5xl font-bold leading-none tracking-tight">
-                  ${plan.precio}
+              <div className="mt-8 flex flex-wrap items-baseline gap-2">
+                <span className="font-serif text-3xl font-bold leading-tight tracking-tight">
+                  {formatPrice(plan.amount)}
                 </span>
-                <span className="ml-2 text-sm text-zinc-500">
-                  {plan.periodo}
+                <span className="text-sm text-zinc-500">
+                  {plan.key === "rescue" ? t("periodOneTime") : t("periodMonth")}
                 </span>
               </div>
 
               <p className="mt-4 text-sm leading-relaxed text-zinc-600">
-                {plan.para}
+                {t(`plans.${plan.key}`)}
               </p>
 
               <div className="my-8 h-px bg-zinc-200" />
 
               <ul className="flex flex-1 flex-col gap-3">
-                {plan.features.map((feature) => (
+                {getFeatures(plan.featuresKey).map((feature) => (
                   <li
                     key={feature}
                     className="flex gap-2.5 text-sm leading-relaxed text-zinc-700"
@@ -114,33 +123,34 @@ export function Pricing() {
 
               <a
                 href={whatsappLink(
-                  `Hola SoftCloud Studio, me interesa el plan ${plan.nombre}.`
+                  t("plans.whatsappMessage", { planName: plan.name })
                 )}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={buttonVariants({
-                  variant: plan.destacado ? "whatsapp" : "outline",
+                  variant: plan.featured ? "whatsapp" : "outline",
                   className: "mt-10 w-full rounded-full py-3.5",
                 })}
               >
-                {plan.cta}
+                {t(`plans.${plan.ctaKey}`)}
               </a>
             </div>
           ))}
         </div>
 
         <p className="mt-10 text-sm leading-relaxed text-zinc-500">
-          ¿Tu caso no encaja en un plan mensual? También trabajamos por
-          proyecto cerrado, con alcance y precio fijo por escrito:{" "}
+          {t("plans.contact")}{" "}
           <a
             href={whatsappLink(
-              "Hola SoftCloud Studio, quiero cotizar un proyecto cerrado con precio fijo."
+              locale === "es"
+                ? "Hola SoftCloud Studio, quiero cotizar un proyecto cerrado en COP."
+                : "Hi SoftCloud Studio, I'd like a fixed-scope project quote in USD."
             )}
             target="_blank"
             rel="noopener noreferrer"
             className="font-medium text-indigo-600 underline decoration-indigo-300 underline-offset-4 hover:text-indigo-800"
           >
-            cuéntanos qué necesitas
+            {t("plans.contactLink")}
           </a>
           .
         </p>

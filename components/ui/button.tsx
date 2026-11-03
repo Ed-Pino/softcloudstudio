@@ -7,7 +7,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/85",
+        default: "bg-primary text-primary-foreground hover:bg-primary-hover",
         whatsapp:
           "bg-emerald-600 text-white hover:bg-emerald-500 shadow-md shadow-emerald-600/20 active:translate-y-px",
         gradient:

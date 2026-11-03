@@ -1,5 +1,7 @@
 import { cacheLife } from "next/cache"
 import type { MetadataRoute } from "next"
+import { getPathname } from "@/i18n/navigation"
+import { routing } from "@/i18n/routing"
 import { casos } from "@/lib/casos"
 import { SITE_URL } from "@/lib/site"
 
@@ -13,25 +15,55 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const ultimoDeploy = new Date()
 
-  const paginas: MetadataRoute.Sitemap = [
-    { url: SITE_URL },
-    { url: `${SITE_URL}/trabajo` },
-    { url: `${SITE_URL}/servicios` },
-    { url: `${SITE_URL}/nosotros` },
-    { url: `${SITE_URL}/contacto` },
-  ].map(({ url }) => ({
-    url,
-    lastModified: ultimoDeploy,
-    changeFrequency: "monthly" as const,
-    priority: url === SITE_URL ? 1 : 0.8,
-  }))
+  const routeDefinitions = [
+    { href: "/" as const, priority: 1 },
+    { href: "/trabajo" as const, priority: 0.8 },
+    { href: "/servicios" as const, priority: 0.8 },
+    { href: "/nosotros" as const, priority: 0.7 },
+    { href: "/contacto" as const, priority: 0.7 },
+    { href: "/servicios/aws-cost-optimization" as const, priority: 0.8 },
+  ]
 
-  const proyectos: MetadataRoute.Sitemap = casos.map((caso) => ({
-    url: `${SITE_URL}/trabajo/${caso.slug}`,
-    lastModified: ultimoDeploy,
-    changeFrequency: "yearly" as const,
-    priority: 0.6,
-  }))
+  const pages: MetadataRoute.Sitemap = routing.locales.flatMap((locale) =>
+    routeDefinitions.map(({ href, priority }) => ({
+      url: `${SITE_URL}${getPathname({ locale, href })}`,
+      lastModified: ultimoDeploy,
+      changeFrequency: "monthly" as const,
+      priority,
+      alternates: {
+        languages: Object.fromEntries(
+          routing.locales.map((alternateLocale) => [
+            alternateLocale,
+            `${SITE_URL}${getPathname({ locale: alternateLocale, href })}`,
+          ])
+        ),
+      },
+    }))
+  )
 
-  return [...paginas, ...proyectos]
+  const projects: MetadataRoute.Sitemap = routing.locales.flatMap((locale) =>
+    casos.map((caso) => {
+      const href = {
+        pathname: "/trabajo/[slug]" as const,
+        params: { slug: caso.slug },
+      }
+
+      return {
+        url: `${SITE_URL}${getPathname({ locale, href })}`,
+        lastModified: ultimoDeploy,
+        changeFrequency: "yearly" as const,
+        priority: 0.6,
+        alternates: {
+          languages: Object.fromEntries(
+            routing.locales.map((alternateLocale) => [
+              alternateLocale,
+              `${SITE_URL}${getPathname({ locale: alternateLocale, href })}`,
+            ])
+          ),
+        },
+      }
+    })
+  )
+
+  return [...pages, ...projects]
 }

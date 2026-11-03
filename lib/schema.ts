@@ -16,7 +16,7 @@ const SERVICIOS = [
   {
     nombre: "Desarrollo de software a la medida",
     descripcion:
-      "Sistemas internos, paneles de administración y APIs REST en Java 17 y Spring Boot 3, con frontend en Next.js y TypeScript.",
+      "Sistemas internos, paneles de administración y APIs REST en Java y Spring Boot, con frontend en Next.js y TypeScript.",
   },
   {
     nombre: "E-commerce",
