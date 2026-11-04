@@ -51,43 +51,59 @@ export default async function Home({
   const quoteUrl = whatsappLink(t("whatsappMessage"))
 
   return (
-    <main className="min-h-screen bg-white text-zinc-900">
-      <section className="mx-auto max-w-6xl px-6 py-24 text-center md:py-28">
-        <p className="text-sm font-medium uppercase tracking-[0.25em] text-indigo-600">
-          {t("eyebrow")}
-        </p>
-        <h1 className="mt-6 text-5xl font-bold tracking-tight md:text-7xl">
-          {t("titleLead")} <span className="text-zinc-500">{t("titleHighlight")}</span>
-        </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-zinc-600 md:text-xl">
-          {t("description")}
-        </p>
-        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <Link
-            href="/trabajo"
-            className={buttonVariants({
-              size: "lg",
-              className: "rounded-full px-8",
-            })}
-          >
-            {t("projects")}
-          </Link>
-          <a
-            href={quoteUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={buttonVariants({
-              variant: "outline",
-              size: "lg",
-              className: "rounded-full px-8",
-            })}
-          >
-            {t("whatsapp")}
-          </a>
+    <main className="min-h-screen bg-[#020d1f]">
+      <section className="relative isolate min-h-[min(760px,calc(100svh-5rem))] overflow-hidden border-b border-white/10 bg-[#020d1f] text-white">
+        <Image
+          src="/cloud.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[30%_center] lg:object-[62%_center]"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,_#020817_0%,_rgba(2,8,23,0.98)_24%,_rgba(2,8,23,0.84)_39%,_rgba(2,8,23,0.2)_73%,_rgba(2,8,23,0.08)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_68%_48%,_transparent_20%,_rgba(2,8,23,0.12)_72%,_rgba(2,8,23,0.42)_100%)]" />
+
+        <div className="relative mx-auto flex min-h-[min(760px,calc(100svh-5rem))] max-w-7xl items-center px-6 py-20 sm:px-8 lg:px-12">
+          <div className="max-w-[620px] lg:max-w-[480px]">
+            <p className="text-sm font-medium uppercase tracking-[0.28em] text-cyan-300">
+              {t("eyebrow")}
+            </p>
+            <h1 className="mt-6 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+              {t("titleLead")} <span className="text-slate-300">{t("titleHighlight")}</span>
+            </h1>
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-slate-300 sm:text-lg">
+              {t("description")}
+            </p>
+
+            <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row">
+              <Link
+                href="/trabajo"
+                className={buttonVariants({
+                  size: "lg",
+                  className: "rounded-full px-8 border border-cyan-400/40 bg-cyan-500 text-white shadow-[0_0_30px_rgba(34,211,238,0.25)] hover:bg-cyan-400",
+                })}
+              >
+                {t("projects")}
+              </Link>
+              <a
+                href={quoteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={buttonVariants({
+                  variant: "outline",
+                  size: "lg",
+                  className: "rounded-full border-white/20 bg-white/5 px-8 text-white hover:bg-white/10",
+                })}
+              >
+                {t("whatsapp")}
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section id="servicios" className="bg-zinc-50 py-20">
+      <section id="servicios" className="bg-zinc-50 py-20 text-zinc-900">
         <div className="mx-auto max-w-6xl px-6">
           <div className="mb-10 max-w-2xl">
             <p className="text-sm font-medium uppercase tracking-[0.24em] text-zinc-500">
@@ -103,7 +119,7 @@ export default async function Home({
               <span className="inline-flex rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-indigo-700">
                 {t("webLabel")}
               </span>
-              <h3 className="mt-5 text-2xl font-bold tracking-tight">{t("webTitle")}</h3>
+              <h3 className="mt-5 text-2xl font-bold tracking-tight text-zinc-900">{t("webTitle")}</h3>
               <p className="mt-3 text-zinc-600">
                 {t("webDescription")}
               </p>
@@ -114,7 +130,7 @@ export default async function Home({
               <span className="inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-700">
                 {t("appsLabel")}
               </span>
-              <h3 className="mt-5 text-2xl font-bold tracking-tight">{t("appsTitle")}</h3>
+              <h3 className="mt-5 text-2xl font-bold tracking-tight text-zinc-900">{t("appsTitle")}</h3>
               <p className="mt-3 text-zinc-600">
                 {t("appsDescription")}
               </p>
@@ -135,7 +151,7 @@ export default async function Home({
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-20">
+      <section className="mx-auto max-w-6xl px-6 py-20 text-zinc-900">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-zinc-500">
