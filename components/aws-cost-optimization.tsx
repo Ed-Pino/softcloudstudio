@@ -1,18 +1,35 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useLocale, useTranslations } from "next-intl"
-import { COPYRIGHT_YEAR, whatsappLink } from "@/lib/site"
+import { whatsappLink } from "@/lib/site"
 import { AuditRequestForm } from "@/components/audit-request-form"
 import type { Locale } from "@/i18n/routing"
 
-const PLANS = [
+// Porcentaje de ahorro estimado que se muestra en la calculadora
+const SAVINGS_RATE = 0.28
+
+type PlanCta = "form" | "whatsapp"
+
+type Plan = {
+  name: string
+  amount: number
+  billing: "oneTime" | "monthly"
+  features: readonly string[]
+  popular: boolean
+  ctaType: PlanCta
+  hasFromPrefix: boolean
+}
+
+const PLANS: Plan[] = [
   {
     name: "audit",
     amount: 299,
     billing: "oneTime",
     features: ["auditAccount", "auditScope", "auditAnalysis", "auditReport", "auditMeeting"],
     popular: false,
+    ctaType: "form",
+    hasFromPrefix: false,
   },
   {
     name: "starter",
@@ -20,6 +37,8 @@ const PLANS = [
     billing: "monthly",
     features: ["monthlyReview", "monthlyActionsTwo", "monthlyReport", "budgetAlerts", "businessHoursSupport"],
     popular: false,
+    ctaType: "whatsapp",
+    hasFromPrefix: false,
   },
   {
     name: "optimizer",
@@ -34,6 +53,8 @@ const PLANS = [
       "biweeklyMeetings",
     ],
     popular: true,
+    ctaType: "whatsapp",
+    hasFromPrefix: false,
   },
   {
     name: "scale",
@@ -41,20 +62,39 @@ const PLANS = [
     billing: "monthly",
     features: ["multipleAccounts", "advancedAutomation", "commitmentPlanning", "costGovernance", "infrastructureTracking"],
     popular: false,
+    ctaType: "whatsapp",
+    hasFromPrefix: true,
   },
-] as const
+]
+
+function getLocaleDefaults(isSpanish: boolean) {
+  return {
+    currency: isSpanish ? "COP" : "USD",
+    minimumSpend: isSpanish ? 2_000_000 : 500,
+    maximumSpend: isSpanish ? 80_000_000 : 20_000,
+    step: isSpanish ? 1_000_000 : 100,
+    defaultSpend: isSpanish ? 17_000_000 : 4_200,
+  }
+}
 
 export function AwsCostOptimization() {
   const t = useTranslations("aws")
   const locale = useLocale() as Locale
   const isSpanish = locale === "es"
-  const currency = isSpanish ? "COP" : "USD"
-  const minimumSpend = isSpanish ? 2_000_000 : 500
-  const maximumSpend = isSpanish ? 80_000_000 : 20_000
-  const step = isSpanish ? 1_000_000 : 100
-  const [spend, setSpend] = useState(isSpanish ? 17_000_000 : 4_200)
-  const savings = spend * 0.28
+
+  const { currency, minimumSpend, maximumSpend, step, defaultSpend } =
+    getLocaleDefaults(isSpanish)
+
+  const [spend, setSpend] = useState(defaultSpend)
+
+  // Sincroniza el slider si el locale cambia en runtime
+  useEffect(() => {
+    setSpend(getLocaleDefaults(isSpanish).defaultSpend)
+  }, [isSpanish])
+
+  const savings = spend * SAVINGS_RATE
   const newBill = spend - savings
+
   const formatMoney = (amount: number) =>
     new Intl.NumberFormat(isSpanish ? "es-CO" : "en-US", {
       style: "currency",
@@ -106,7 +146,7 @@ export function AwsCostOptimization() {
               max={maximumSpend}
               step={step}
               value={spend}
-              onChange={(event) => setSpend(Number(event.target.value))}
+              onChange={(e) => setSpend(Number(e.target.value))}
               className="mt-4 w-full accent-orange-500"
             />
             <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -143,62 +183,59 @@ export function AwsCostOptimization() {
           <p className="mt-4 text-zinc-400">{t("pilotPricingNote")}</p>
         </div>
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-        {PLANS.map((plan) => (
-          <div
-            key={plan.name}
-            className={`rounded-[1.5rem] border p-8 ${
-              plan.popular
-                ? "border-white bg-white text-black"
-                : "border-zinc-800 bg-zinc-900"
-            }`}
-          >
-            {plan.popular ? (
-              <span className="rounded-full bg-black px-3 py-1 text-xs text-white">
-                {t("popular")}
-              </span>
-            ) : null}
-            <h3 className="mt-4 text-2xl font-bold">{t(plan.name)}</h3>
-            <p className={`text-sm ${plan.popular ? "text-zinc-600" : "text-zinc-500"}`}>
-              {t(`${plan.name}Subtitle`)}
-            </p>
-            <p className="mt-4 text-3xl font-black">
-              {plan.name === "scale" ? `${t("from")} ` : null}
-              ${plan.amount.toLocaleString("en-US")} USD
-              <span className="text-base font-medium">
-                {t(plan.billing === "oneTime" ? "oneTime" : "perMonth")}
-              </span>
-            </p>
-            <ul className="mt-6 space-y-2 text-sm">
-              {plan.features.map((feature) => (
-                <li key={feature} className="flex gap-2">
-                  <span aria-hidden="true">✓</span>
-                  <span>{t(feature)}</span>
-                </li>
-              ))}
-            </ul>
-            <a
-              href={
-                plan.name === "audit"
-                  ? "#audit-request"
-                  : whatsappLink(
-                      t("planWhatsappMessage", { planName: t(plan.name) })
-                    )
-              }
-              target={plan.name === "audit" ? undefined : "_blank"}
-              rel={plan.name === "audit" ? undefined : "noopener noreferrer"}
-              className={`mt-8 block rounded-full py-3 text-center font-bold ${
-                plan.popular ? "bg-black text-white" : "bg-white text-black"
+          {PLANS.map((plan) => (
+            <div
+              key={plan.name}
+              className={`rounded-[1.5rem] border p-8 ${
+                plan.popular
+                  ? "border-white bg-white text-black"
+                  : "border-zinc-800 bg-zinc-900"
               }`}
             >
-              {t(plan.name === "audit" ? "requestAudit" : "contactPlan")}
-            </a>
-          </div>
-        ))}
+              {plan.popular ? (
+                <span className="rounded-full bg-black px-3 py-1 text-xs text-white">
+                  {t("popular")}
+                </span>
+              ) : null}
+              <h3 className="mt-4 text-2xl font-bold">{t(plan.name)}</h3>
+              <p className={`text-sm ${plan.popular ? "text-zinc-600" : "text-zinc-500"}`}>
+                {t(`${plan.name}Subtitle`)}
+              </p>
+              <p className="mt-4 text-3xl font-black">
+                {plan.hasFromPrefix ? `${t("from")} ` : null}
+                ${plan.amount.toLocaleString("en-US")} USD
+                <span className="text-base font-medium">
+                  {t(plan.billing === "oneTime" ? "oneTime" : "perMonth")}
+                </span>
+              </p>
+              <ul className="mt-6 space-y-2 text-sm">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="flex gap-2">
+                    <span aria-hidden="true">✓</span>
+                    <span>{t(feature)}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={
+                  plan.ctaType === "form"
+                    ? "#audit-request"
+                    : whatsappLink(
+                        t("planWhatsappMessage", { planName: t(plan.name) })
+                      )
+                }
+                target={plan.ctaType === "form" ? undefined : "_blank"}
+                rel={plan.ctaType === "form" ? undefined : "noopener noreferrer"}
+                className={`mt-8 block rounded-full py-3 text-center font-bold ${
+                  plan.popular ? "bg-black text-white" : "bg-white text-black"
+                }`}
+              >
+                {t(plan.ctaType === "form" ? "requestAudit" : "contactPlan")}
+              </a>
+            </div>
+          ))}
         </div>
       </section>
-      <footer className="py-12 text-center text-sm text-zinc-600">
-        © {COPYRIGHT_YEAR} {t("footer")}
-      </footer>
     </main>
   )
 }
